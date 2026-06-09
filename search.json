@@ -11,21 +11,21 @@
     "href": "posts/lung/sv_lung_html.html",
     "title": "肺癌数据生存分析",
     "section": "",
-    "text": "代码\nlibrary(tidyverse)\nlibrary(naniar)\nlibrary(patchwork)\nlibrary(survival)\nlibrary(ggpubr)\nlibrary(survminer)\nlibrary(mice)\nlibrary(gridExtra)\nlibrary(scales)\n\n\n\n\n\n\n代码\nlung %&gt;% head()\n\n\n  inst time status age sex ph.ecog ph.karno pat.karno meal.cal wt.loss\n1    3  306      2  74   1       1       90       100     1175      NA\n2    3  455      2  68   1       0       90        90     1225      15\n3    3 1010      1  56   1       0       90        90       NA      15\n4    5  210      2  57   1       1       90        60     1150      11\n5    1  883      2  60   1       0      100        90       NA       0\n6   12 1022      1  74   1       1       50        80      513       0\n\n\n\n\n代码\nlung %&gt;% \n  ggplot(\n    aes(\n      x=time,fill=factor(sex)\n        )\n    )+\n  geom_histogram()+\n  theme_classic2()\n\n\n\n\n\n\n\n\n\n\n观察直方图可以发现生存时间总体呈现一个看似偏态的分布，且男女生可能有较大差异。后期再进行检验\n\n\n\n\n观察到最终状态未为常见的0/1，而是1/2.进行修改\n\n\n代码\nlung_clean &lt;- \n  lung %&gt;% \n  mutate(\n    status=if_else(status==2,1,0)\n    #status = recode(status, `1` = 0, `2` = 1) 更简洁的写法\n  ) %&gt;% \n  as.tibble()\n\n\n\n\n\n变量名\n含义\n\n\n\n\ntime\n生存时间，单位：天\n\n\nstatus\n结局状态\n\n\nage\n年龄（岁）\n\n\nsex\n性别\n\n\ninst\n入组机构编号（1–16），多中心研究标识\n\n\nph.ecog\n医生评估 ECOG 体能状态（0–3，越高越差）\n\n\nph.karno\n医生评估 Karnofsky 功能评分（0–100，越高越好）\n\n\npat.karno\n患者自评 Karnofsky 评分\n\n\nmeal.cal\n每日摄入卡路里（营养状况）\n\n\nwt.loss\n最近 6 个月体重下降（磅）"
+    "text": "本文基于肺癌患者生存数据，完整展示了从缺失值处理、多重插补到Cox比例风险模型构建的全流程分析，探讨了性别、体能状态等因素对患者生存预后的影响，并通过PH假设检验完成模型优化，为生存分析方法的应用提供参考。"
   },
   {
     "objectID": "posts/lung/sv_lung_html.html#查看数据",
     "href": "posts/lung/sv_lung_html.html#查看数据",
     "title": "肺癌数据生存分析",
-    "section": "",
-    "text": "代码\nlung %&gt;% head()\n\n\n  inst time status age sex ph.ecog ph.karno pat.karno meal.cal wt.loss\n1    3  306      2  74   1       1       90       100     1175      NA\n2    3  455      2  68   1       0       90        90     1225      15\n3    3 1010      1  56   1       0       90        90       NA      15\n4    5  210      2  57   1       1       90        60     1150      11\n5    1  883      2  60   1       0      100        90       NA       0\n6   12 1022      1  74   1       1       50        80      513       0\n\n\n\n\n代码\nlung %&gt;% \n  ggplot(\n    aes(\n      x=time,fill=factor(sex)\n        )\n    )+\n  geom_histogram()+\n  theme_classic2()\n\n\n\n\n\n\n\n\n\n\n观察直方图可以发现生存时间总体呈现一个看似偏态的分布，且男女生可能有较大差异。后期再进行检验"
+    "section": "1.1 查看数据",
+    "text": "1.1 查看数据\n\n\n代码\nlung %&gt;% head()\n\n\n  inst time status age sex ph.ecog ph.karno pat.karno meal.cal wt.loss\n1    3  306      2  74   1       1       90       100     1175      NA\n2    3  455      2  68   1       0       90        90     1225      15\n3    3 1010      1  56   1       0       90        90       NA      15\n4    5  210      2  57   1       1       90        60     1150      11\n5    1  883      2  60   1       0      100        90       NA       0\n6   12 1022      1  74   1       1       50        80      513       0\n\n\n\n\n代码\nlung %&gt;% \n  ggplot(\n    aes(\n      x=time,fill=factor(sex)\n        )\n    )+\n  geom_histogram()+\n  theme_classic2()\n\n\n\n\n\n\n\n\n\n\n观察直方图可以发现生存时间总体呈现一个看似偏态的分布，且男女生可能有较大差异。后期再进行检验"
   },
   {
     "objectID": "posts/lung/sv_lung_html.html#data-transform",
     "href": "posts/lung/sv_lung_html.html#data-transform",
     "title": "肺癌数据生存分析",
-    "section": "",
-    "text": "观察到最终状态未为常见的0/1，而是1/2.进行修改\n\n\n代码\nlung_clean &lt;- \n  lung %&gt;% \n  mutate(\n    status=if_else(status==2,1,0)\n    #status = recode(status, `1` = 0, `2` = 1) 更简洁的写法\n  ) %&gt;% \n  as.tibble()\n\n\n\n\n\n变量名\n含义\n\n\n\n\ntime\n生存时间，单位：天\n\n\nstatus\n结局状态\n\n\nage\n年龄（岁）\n\n\nsex\n性别\n\n\ninst\n入组机构编号（1–16），多中心研究标识\n\n\nph.ecog\n医生评估 ECOG 体能状态（0–3，越高越差）\n\n\nph.karno\n医生评估 Karnofsky 功能评分（0–100，越高越好）\n\n\npat.karno\n患者自评 Karnofsky 评分\n\n\nmeal.cal\n每日摄入卡路里（营养状况）\n\n\nwt.loss\n最近 6 个月体重下降（磅）"
+    "section": "1.2 data transform",
+    "text": "1.2 data transform\n观察到最终状态未为常见的0/1，而是1/2.进行修改\n\n\n代码\nlung_clean &lt;- \n  lung %&gt;% \n  mutate(\n    status=if_else(status==2,1,0)\n    #status = recode(status, `1` = 0, `2` = 1) 更简洁的写法\n  ) %&gt;% \n  as.tibble()\n\n\n\n\n\n变量名\n含义\n\n\n\n\ntime\n生存时间，单位：天\n\n\nstatus\n结局状态\n\n\nage\n年龄（岁）\n\n\nsex\n性别\n\n\ninst\n入组机构编号（1–16），多中心研究标识\n\n\nph.ecog\n医生评估 ECOG 体能状态（0–3，越高越差）\n\n\nph.karno\n医生评估 Karnofsky 功能评分（0–100，越高越好）\n\n\npat.karno\n患者自评 Karnofsky 评分\n\n\nmeal.cal\n每日摄入卡路里（营养状况）\n\n\nwt.loss\n最近 6 个月体重下降（磅）"
   },
   {
     "objectID": "posts/lung/sv_lung_html.html#缺失值统计",
@@ -144,7 +144,7 @@
     "href": "index.html",
     "title": "Eros 数据分析博客",
     "section": "",
-    "text": "肺癌数据生存分析\n\n\n缺失处理、多重插补与 Cox 比例风险模型\n\n\n\n生存分析\n\nR语言\n\n统计学笔记\n\n\n\n\n\n\n\n\n\nInvalid Date\n\n\n24统计Eros\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nJun 9, 2026\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJun 6, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
+    "text": "Post With Code\n\n\n\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nJun 9, 2026\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJun 6, 2026\n\n\nTristan O’Malley\n\n\n\n\n\n\n\n\n\n\n\n\n肺癌数据生存分析\n\n\n缺失处理、多重插补与 Cox 比例风险模型\n\n\n\n生存分析\n\nR语言\n\n统计学笔记\n\n\n\n\n\n\n\n\n\nMay 30, 2026\n\n\n24统计Eros\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/post-with-code/index.html",

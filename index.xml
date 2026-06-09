@@ -10,7 +10,50 @@
 <atom:link href="https://your-website-url.example.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog built with Quarto</description>
 <generator>quarto-1.9.37</generator>
-<lastBuildDate>Invalid Date</lastBuildDate>
+<lastBuildDate>Mon, 08 Jun 2026 16:00:00 GMT</lastBuildDate>
+<item>
+  <title>Post With Code</title>
+  <dc:creator>Harlow Malloc</dc:creator>
+  <link>https://your-website-url.example.com/posts/post-with-code/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>This is a post with executable code.</p>
+
+
+
+ ]]></description>
+  <category>news</category>
+  <category>code</category>
+  <category>analysis</category>
+  <guid>https://your-website-url.example.com/posts/post-with-code/</guid>
+  <pubDate>Mon, 08 Jun 2026 16:00:00 GMT</pubDate>
+  <media:content url="https://your-website-url.example.com/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title>Welcome To My Blog</title>
+  <dc:creator>Tristan O&#39;Malley</dc:creator>
+  <link>https://your-website-url.example.com/posts/welcome/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>This is the first post in a Quarto blog. Welcome!</p>
+<p><img src="https://your-website-url.example.com/posts/welcome/thumbnail.jpg" class="img-fluid"></p>
+<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
+
+
+
+ ]]></description>
+  <category>news</category>
+  <guid>https://your-website-url.example.com/posts/welcome/</guid>
+  <pubDate>Fri, 05 Jun 2026 16:00:00 GMT</pubDate>
+</item>
 <item>
   <title>肺癌数据生存分析</title>
   <dc:creator>24统计Eros </dc:creator>
@@ -21,6 +64,7 @@
 
 
 
+<p>本文基于肺癌患者生存数据，完整展示了从缺失值处理、多重插补到Cox比例风险模型构建的全流程分析，探讨了性别、体能状态等因素对患者生存预后的影响，并通过PH假设检验完成模型优化，为生存分析方法的应用提供参考。</p>
 <section id="导入包" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> 导入包</h1>
 <div class="cell">
@@ -2707,51 +2751,8 @@ font-style: inherit;">14</span>)</span></code></pre></div></div>
   <category>R语言</category>
   <category>统计学笔记</category>
   <guid>https://your-website-url.example.com/posts/lung/sv_lung_html.html</guid>
-  <pubDate>Invalid Date</pubDate>
+  <pubDate>Fri, 29 May 2026 16:00:00 GMT</pubDate>
   <media:content url="https://your-website-url.example.com/posts/lung/image.png" medium="image" type="image/png" height="103" width="144"/>
-</item>
-<item>
-  <title>Post With Code</title>
-  <dc:creator>Harlow Malloc</dc:creator>
-  <link>https://your-website-url.example.com/posts/post-with-code/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>This is a post with executable code.</p>
-
-
-
- ]]></description>
-  <category>news</category>
-  <category>code</category>
-  <category>analysis</category>
-  <guid>https://your-website-url.example.com/posts/post-with-code/</guid>
-  <pubDate>Mon, 08 Jun 2026 16:00:00 GMT</pubDate>
-  <media:content url="https://your-website-url.example.com/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>Welcome To My Blog</title>
-  <dc:creator>Tristan O&#39;Malley</dc:creator>
-  <link>https://your-website-url.example.com/posts/welcome/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>This is the first post in a Quarto blog. Welcome!</p>
-<p><img src="https://your-website-url.example.com/posts/welcome/thumbnail.jpg" class="img-fluid"></p>
-<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
-
-
-
- ]]></description>
-  <category>news</category>
-  <guid>https://your-website-url.example.com/posts/welcome/</guid>
-  <pubDate>Fri, 05 Jun 2026 16:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
