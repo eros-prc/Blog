@@ -7,27 +7,6 @@
     "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Eros 数据分析博客",
-    "section": "",
-    "text": "肺癌数据生存分析\n\n\n缺失处理、多重插补与 Cox 比例风险模型\n\n\n\n生存分析\n\nR语言\n\n统计学笔记\n\n\n\n\n\n\n\n\n\nInvalid Date\n\n\n24统计Eros\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nJun 9, 2026\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJun 6, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "是的，毕竟来日方长！"
-  },
-  {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
-    "section": "",
-    "text": "This is a post with executable code."
-  },
-  {
     "objectID": "posts/lung/sv_lung_html.html",
     "href": "posts/lung/sv_lung_html.html",
     "title": "肺癌数据生存分析",
@@ -152,5 +131,26 @@
     "title": "肺癌数据生存分析",
     "section": "4.4 多重插补 PH 检验结果",
     "text": "4.4 多重插补 PH 检验结果\n\n\n代码\nph_plot_data &lt;- ph_summary_final2 %&gt;%\n  mutate(\n    term = factor(term, levels = rev(term)),\n    label = paste0(\"n_sig = \", n_sig)\n  )\n\nggplot(ph_plot_data, aes(y = term)) +\n  geom_vline(\n    xintercept = 0.05,\n    linetype = 2,\n    color = \"red\"\n  ) +\n  geom_linerange(\n    aes(xmin = min_p, xmax = max_p),\n    linewidth = 1\n  ) +\n  geom_point(\n    aes(x = median_p),\n    size = 3\n  ) +\n  geom_text(\n    aes(x = max_p, label = label),\n    hjust = -0.1,\n    size = 4\n  ) +\n  labs(\n    title = \"最终模型的多重插补 PH 假设检验汇总\",\n    subtitle = \"横线表示各插补数据集 p 值范围，点表示中位数 p 值\",\n    x = \"PH 检验 p 值\",\n    y = \"变量\"\n  ) +\n  coord_cartesian(xlim = c(0, max(ph_plot_data$max_p) * 1.2)) +\n  theme_bw(base_size = 14)"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "是的，毕竟来日方长！"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Eros 数据分析博客",
+    "section": "",
+    "text": "肺癌数据生存分析\n\n\n缺失处理、多重插补与 Cox 比例风险模型\n\n\n\n生存分析\n\nR语言\n\n统计学笔记\n\n\n\n\n\n\n\n\n\nInvalid Date\n\n\n24统计Eros\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nJun 9, 2026\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJun 6, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "This is a post with executable code."
   }
 ]
