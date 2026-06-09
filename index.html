@@ -82,9 +82,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -195,7 +195,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="YW5hbHlzaXM=">analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y29kZQ==">code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bmV3cw==">news <span class="quarto-category-count">(2)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="JUU3JTk0JTlGJUU1JUFEJTk4JUU1JTg4JTg2JUU2JTlFJTkw">生存分析 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JUJCJTlGJUU4JUFFJUExJUU1JUFEJUE2JUU3JUFDJTk0JUU4JUFFJUIw">统计学笔记 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="YW5hbHlzaXM=">analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y29kZQ==">code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bmV3cw==">news <span class="quarto-category-count">(2)</span></div><div class="category" data-category="UiVFOCVBRiVBRCVFOCVBOCU4MA==">R语言 <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -209,7 +209,44 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="bmV3cyUyQ2NvZGUlMkNhbmFseXNpcw==" data-listing-date-sort="1780934400000" data-listing-file-modified-sort="1781016726532" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="7">
+<div class="quarto-post image-right" data-index="0" data-categories="JUU3JTk0JTlGJUU1JUFEJTk4JUU1JTg4JTg2JUU2JTlFJTkwJTJDUiVFOCVBRiVBRCVFOCVBOCU4MCUyQyVFNyVCQiU5RiVFOCVBRSVBMSVFNSVBRCVBNiVFNyVBQyU5NCVFOCVBRSVCMA==" data-listing-date-sort="NaN" data-listing-file-modified-sort="1781018896242" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2398">
+<div class="thumbnail"><a href="./posts/lung/sv_lung_html.html" class="no-external">
+
+<img loading="lazy" src="./posts/lung/image.png" class="thumbnail-image">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/lung/sv_lung_html.html" class="no-external">肺癌数据生存分析</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/lung/sv_lung_html.html" class="no-external">缺失处理、多重插补与 Cox 比例风险模型</a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU3JTk0JTlGJUU1JUFEJTk4JUU1JTg4JTg2JUU2JTlFJTkw'); return false;">生存分析</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UiVFOCVBRiVBRCVFOCVBOCU4MA=='); return false;">R语言</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU3JUJCJTlGJUU4JUFFJUExJUU1JUFEJUE2JUU3JUFDJTk0JUU4JUFFJUIw'); return false;">统计学笔记</div>
+
+</div>
+<div class="delink listing-description"><a href="./posts/lung/sv_lung_html.html" class="no-external">
+观察到最终状态未为常见的0/1，而是1/2.进行修改
+</a></div>
+</div>
+<div class="metadata">
+<a href="./posts/lung/sv_lung_html.html" class="no-external">
+<div class="listing-date">
+Invalid Date
+</div>
+<div class="listing-author">
+24统计Eros
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="bmV3cyUyQ2NvZGUlMkNhbmFseXNpcw==" data-listing-date-sort="1780934400000" data-listing-file-modified-sort="1781016726532" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="7">
 <div class="thumbnail"><a href="./posts/post-with-code/index.html" class="no-external">
 
 <img loading="lazy" src="./posts/post-with-code/image.jpg" class="thumbnail-image">
@@ -219,6 +256,9 @@ window.Quarto = {
 <h3 class="no-anchor listing-title">
 <a href="./posts/post-with-code/index.html" class="no-external">Post With Code</a>
 </h3>
+<div class="listing-subtitle">
+<a href="./posts/post-with-code/index.html" class="no-external"></a>
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('bmV3cw=='); return false;">news</div>
@@ -243,7 +283,7 @@ Harlow Malloc
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="bmV3cw==" data-listing-date-sort="1780675200000" data-listing-file-modified-sort="1781016726532" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="32">
+<div class="quarto-post image-right" data-index="2" data-categories="bmV3cw==" data-listing-date-sort="1780675200000" data-listing-file-modified-sort="1781016726532" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="32">
 <div class="thumbnail"><a href="./posts/welcome/index.html" class="no-external">
 
 <p class="card-img-top"><img loading='lazy' src="posts\welcome\thumbnail.jpg"  class="thumbnail-image card-img"/></p>
@@ -253,6 +293,9 @@ Harlow Malloc
 <h3 class="no-anchor listing-title">
 <a href="./posts/welcome/index.html" class="no-external">Welcome To My Blog</a>
 </h3>
+<div class="listing-subtitle">
+<a href="./posts/welcome/index.html" class="no-external"></a>
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('bmV3cw=='); return false;">news</div>
