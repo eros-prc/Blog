@@ -1,8 +1,38 @@
 [
   {
+    "listing": "/survival.html",
+    "items": [
+      "/posts/survival/lung/index.html"
+    ]
+  },
+  {
+    "listing": "/r.html",
+    "items": []
+  },
+  {
+    "listing": "/math-modeling.html",
+    "items": []
+  },
+  {
+    "listing": "/causal.html",
+    "items": []
+  },
+  {
     "listing": "/index.html",
     "items": [
-      "/posts/lung/sv_lung_html.html"
+      "/posts/survival/lung/index.html"
     ]
+  },
+  {
+    "listing": "/modeling.html",
+    "items": []
+  },
+  {
+    "listing": "/python.html",
+    "items": []
+  },
+  {
+    "listing": "/statistics.html",
+    "items": []
   }
 ]

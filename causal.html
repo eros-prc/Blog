@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Eros 统计建模与数据科学笔记 – Blog</title>
+<title>因果推断 – Blog</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -82,9 +82,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -152,7 +152,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">首页</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -223,23 +223,23 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JTk0JTlGJUU1JUFEJTk4JUU1JTg4JTg2JUU2JTlFJTkw">生存分析 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU3JUJCJTlGJUU4JUFFJUExJUU1JUFEJUE2JUU3JUFDJTk0JUU4JUFFJUIw">统计学笔记 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UiVFOCVBRiVBRCVFOCVBOCU4MA==">R语言 <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Eros 统计建模与数据科学笔记</h1>
+<h1 class="title">因果推断</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta">
 
     
   
@@ -251,79 +251,14 @@ window.Quarto = {
 </header>
 
 
-<section id="欢迎来到我的学习笔记" class="level2">
-<h2 class="anchored" data-anchor-id="欢迎来到我的学习笔记">欢迎来到我的学习笔记</h2>
-<p>这里记录我在应用统计学学习过程中的笔记、代码实验和项目分析，主要包括：</p>
-<ul>
-<li>统计学基础与建模方法</li>
-<li>R / Python 数据分析</li>
-<li>生存分析与 Cox 模型</li>
-<li>因果推断与机器学习</li>
-<li>数学建模与运筹优化</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>这个博客会持续更新，目标是把零散的课堂知识整理成可以复习、可以复现、可以展示的学习档案。</p>
-</div>
-</div>
+<p>这里整理 PSM、IPTW、DID、IV、AIPW、TMLE、Causal Forest 等因果推断方法。</p>
 
 
 
-</section>
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="JUU3JTk0JTlGJUU1JUFEJTk4JUU1JTg4JTg2JUU2JTlFJTkwJTJDUiVFOCVBRiVBRCVFOCVBOCU4MCUyQyVFNyVCQiU5RiVFOCVBRSVBMSVFNSVBRCVBNiVFNyVBQyU5NCVFOCVBRSVCMA==" data-listing-date-sort="1780070400000" data-listing-file-modified-sort="1781188731702" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2398">
-<div class="thumbnail"><a href="./posts/survival/lung/index.html" class="no-external">
 
-<img loading="lazy" src="./posts/survival/lung/image.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/survival/lung/index.html" class="no-external">肺癌数据生存分析</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/survival/lung/index.html" class="no-external">缺失处理、多重插补与 Cox 比例风险模型</a>
-</div>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU3JTk0JTlGJUU1JUFEJTk4JUU1JTg4JTg2JUU2JTlFJTkw'); return false;">生存分析</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UiVFOCVBRiVBRCVFOCVBOCU4MA=='); return false;">R语言</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('JUU3JUJCJTlGJUU4JUFFJUExJUU1JUFEJUE2JUU3JUFDJTk0JUU4JUFFJUIw'); return false;">统计学笔记</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/survival/lung/index.html" class="no-external">
-<p>本文基于肺癌患者生存数据，完整展示从缺失值处理、多重插补到 Cox 比例风险模型构建的分析流程。</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/survival/lung/index.html" class="no-external">
-<div class="listing-date">
-May 30, 2026
-</div>
-<div class="listing-author">
-24统计Eros
-</div>
-</a>
-</div>
-</div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div></main> <!-- /main -->

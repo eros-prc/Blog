@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="24统计Eros">
+<meta name="description" content="本文基于肺癌患者生存数据，完整展示从缺失值处理、多重插补到 Cox 比例风险模型构建的分析流程。">
 
-<title>肺癌数据生存分析 – blog</title>
+<title>肺癌数据生存分析 – Blog</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -62,23 +63,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -117,8 +118,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">blog</span>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Blog</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="搜索"></div>
@@ -128,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">首页</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -137,15 +138,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
         <li>
-    <a class="dropdown-item" href="../../statistics.qmd">
+    <a class="dropdown-item" href="../../../statistics.qmd">
  <span class="dropdown-text">统计学基础</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../modeling.qmd">
+    <a class="dropdown-item" href="../../../modeling.qmd">
  <span class="dropdown-text">统计建模</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../survival.qmd">
+    <a class="dropdown-item" href="../../../survival.qmd">
  <span class="dropdown-text">生存分析</span></a>
   </li>  
     </ul>
@@ -156,11 +157,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu--1">    
         <li>
-    <a class="dropdown-item" href="../../r.qmd">
+    <a class="dropdown-item" href="../../../r.qmd">
  <span class="dropdown-text">R 语言</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../python.qmd">
+    <a class="dropdown-item" href="../../../python.qmd">
  <span class="dropdown-text">Python</span></a>
   </li>  
     </ul>
@@ -171,11 +172,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu--2">    
         <li>
-    <a class="dropdown-item" href="../../causal.qmd">
+    <a class="dropdown-item" href="../../../causal.qmd">
  <span class="dropdown-text">因果推断</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../math-modeling.qmd">
+    <a class="dropdown-item" href="../../../math-modeling.qmd">
  <span class="dropdown-text">数学建模</span></a>
   </li>  
     </ul>
@@ -183,7 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -204,7 +205,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="quarto-title column-body">
       <div class="quarto-title-block"><div><h1 class="title">肺癌数据生存分析</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> 代码</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">显示所有代码</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">隐藏所有代码</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">查看源代码</a></li></ul></div></div>
             <p class="subtitle lead">缺失处理、多重插补与 Cox 比例风险模型</p>
-                                <div class="quarto-categories">
+                  <div>
+        <div class="description">
+          本文基于肺癌患者生存数据，完整展示从缺失值处理、多重插补到 Cox 比例风险模型构建的分析流程。
+        </div>
+      </div>
+                          <div class="quarto-categories">
                 <div class="quarto-category">生存分析</div>
                 <div class="quarto-category">R语言</div>
                 <div class="quarto-category">统计学笔记</div>
@@ -333,7 +339,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sv_lung_html_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -452,7 +458,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sv_lung_html_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -476,7 +482,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sv_lung_html_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -656,7 +662,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sv_lung_html_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -737,7 +743,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sv_lung_html_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -750,7 +756,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sv_lung_html_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -771,7 +777,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sv_lung_html_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -811,7 +817,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sv_lung_html_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -1213,7 +1219,7 @@ Score (logrank) test = 25.43  on 6 df,   p=3e-04</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sv_lung_html_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -1253,7 +1259,7 @@ Score (logrank) test = 25.43  on 6 df,   p=3e-04</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sv_lung_html_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -1293,7 +1299,7 @@ Score (logrank) test = 25.43  on 6 df,   p=3e-04</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sv_lung_html_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
@@ -1341,7 +1347,7 @@ Score (logrank) test = 25.43  on 6 df,   p=3e-04</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sv_lung_html_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>

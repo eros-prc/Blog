@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://your-website-url.example.com/posts/lung/sv_lung_html.html</loc>
-    <lastmod>2026-06-09T15:45:05.093Z</lastmod>
+    <loc>https://eros-prc.github.io/Blog/survival.html</loc>
+    <lastmod>2026-06-11T14:36:09.481Z</lastmod>
   </url>
   <url>
-    <loc>https://your-website-url.example.com/about.html</loc>
-    <lastmod>2026-06-09T15:00:03.347Z</lastmod>
+    <loc>https://eros-prc.github.io/Blog/r.html</loc>
+    <lastmod>2026-06-11T14:38:49.651Z</lastmod>
   </url>
   <url>
-    <loc>https://your-website-url.example.com/index.html</loc>
-    <lastmod>2026-06-09T15:45:26.211Z</lastmod>
+    <loc>https://eros-prc.github.io/Blog/posts/survival/lung/index.html</loc>
+    <lastmod>2026-06-11T14:38:51.702Z</lastmod>
+  </url>
+  <url>
+    <loc>https://eros-prc.github.io/Blog/math-modeling.html</loc>
+    <lastmod>2026-06-11T14:41:20.627Z</lastmod>
+  </url>
+  <url>
+    <loc>https://eros-prc.github.io/Blog/causal.html</loc>
+    <lastmod>2026-06-11T14:40:53.499Z</lastmod>
+  </url>
+  <url>
+    <loc>https://eros-prc.github.io/Blog/about.html</loc>
+    <lastmod>2026-06-11T14:06:56.278Z</lastmod>
+  </url>
+  <url>
+    <loc>https://eros-prc.github.io/Blog/index.html</loc>
+    <lastmod>2026-06-11T14:36:50.538Z</lastmod>
+  </url>
+  <url>
+    <loc>https://eros-prc.github.io/Blog/modeling.html</loc>
+    <lastmod>2026-06-11T14:38:29.737Z</lastmod>
+  </url>
+  <url>
+    <loc>https://eros-prc.github.io/Blog/python.html</loc>
+    <lastmod>2026-06-11T14:42:37.644Z</lastmod>
+  </url>
+  <url>
+    <loc>https://eros-prc.github.io/Blog/statistics.html</loc>
+    <lastmod>2026-06-11T14:38:05.120Z</lastmod>
   </url>
 </urlset>
