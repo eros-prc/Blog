@@ -1,0 +1,11 @@
+---
+title: "Python 数据分析"
+listing:
+  contents:
+    - "posts/python/*/index.qmd"
+  sort: "date desc"
+  type: default
+  categories: true
+---
+
+这里整理 Python 基础、NumPy、pandas、matplotlib、scikit-learn 和数据分析项目相关内容。

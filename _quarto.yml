@@ -2,22 +2,40 @@ project:
   type: website
 
 website:
-  description: "A blog built with Quarto"
-  site-url: https://your-website-url.example.com # you must change this appropriately for RSS feeds to work properly
-  title: "blog"
+  title: "Blog"
   navbar:
+    left:
+      - text: "首页"
+        href: index.qmd
+
+      - text: "统计学"
+        menu:
+          - text: "统计学基础"
+            href: statistics.qmd
+          - text: "统计建模"
+            href: modeling.qmd
+          - text: "生存分析"
+            href: survival.qmd
+
+      - text: "编程"
+        menu:
+          - text: "R 语言"
+            href: r.qmd
+          - text: "Python"
+            href: python.qmd
+
+      - text: "专题"
+        menu:
+          - text: "因果推断"
+            href: causal.qmd
+          - text: "数学建模"
+            href: math-modeling.qmd
+
     right:
-      - about.qmd
+      - text: "About"
+        href: about.qmd
       - icon: github
-        href: https://github.com/
-      - icon: bluesky
-        href: https://bsky.app/
-format:
-  html:
-    theme:
-      - cosmo
-      - brand
-    css: styles.css
+        href: https://github.com/eros-prc
 
 
 
