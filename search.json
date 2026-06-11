@@ -161,25 +161,39 @@
     "text": "“为什么塞尚随时都在画圣维克图瓦山呢？这是因为每时每刻的光线都是一种馈赠。\n生活，尽管有悲剧，但毕竟还可以是美好的。我已经六十七岁了，青春不再，但我终于感觉自己——因为我不是为了自己而被爱——我感觉自己从未这样年轻，即便一切都快结束了。\n是的，毕竟来日方长。”\n——阿尔都塞《来日方长》"
   },
   {
-    "objectID": "about.html#education-experience",
-    "href": "about.html#education-experience",
-    "title": "Eros",
-    "section": "Education experience",
-    "text": "Education experience"
+    "objectID": "Althusser.html",
+    "href": "Althusser.html",
+    "title": "阿尔都塞",
+    "section": "",
+    "text": "这里整理阿尔都塞相关作品解读，包括《来日方长》《保卫马克思》《读〈资本论〉》等文本的阅读笔记、思想脉络和个人理解。\n\n是的，毕竟来日方长。"
+  },
+  {
+    "objectID": "Althusser.html#阿尔都塞作品阅读笔记",
+    "href": "Althusser.html#阿尔都塞作品阅读笔记",
+    "title": "阿尔都塞",
+    "section": "",
+    "text": "这里整理阿尔都塞相关作品解读，包括《来日方长》《保卫马克思》《读〈资本论〉》等文本的阅读笔记、思想脉络和个人理解。\n\n是的，毕竟来日方长。"
+  },
+  {
+    "objectID": "Althusser.html#文章列表",
+    "href": "Althusser.html#文章列表",
+    "title": "阿尔都塞",
+    "section": "文章列表",
+    "text": "文章列表"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Eros 统计建模与数据科学笔记",
     "section": "",
-    "text": "这里记录我在应用统计学学习过程中的笔记、代码实验和项目分析，主要包括：\n\n统计学基础与建模方法\nR / Python 数据分析\n生存分析与 Cox 模型\n因果推断与机器学习\n数学建模与运筹优化\n\n\n\n\n\n\n\nNote\n\n\n\n这个博客会持续更新，目标是把零散的课堂知识整理成可以复习、可以复现、可以展示的学习档案。"
+    "text": "这里记录应用统计学、R/Python 数据分析、统计建模、生存分析、因果推断、数学建模以及个人阅读笔记。"
   },
   {
-    "objectID": "index.html#欢迎来到我的学习笔记",
-    "href": "index.html#欢迎来到我的学习笔记",
+    "objectID": "index.html#欢迎来到-eros-的数据分析博客",
+    "href": "index.html#欢迎来到-eros-的数据分析博客",
     "title": "Eros 统计建模与数据科学笔记",
     "section": "",
-    "text": "这里记录我在应用统计学学习过程中的笔记、代码实验和项目分析，主要包括：\n\n统计学基础与建模方法\nR / Python 数据分析\n生存分析与 Cox 模型\n因果推断与机器学习\n数学建模与运筹优化\n\n\n\n\n\n\n\nNote\n\n\n\n这个博客会持续更新，目标是把零散的课堂知识整理成可以复习、可以复现、可以展示的学习档案。"
+    "text": "这里记录应用统计学、R/Python 数据分析、统计建模、生存分析、因果推断、数学建模以及个人阅读笔记。"
   },
   {
     "objectID": "modeling.html",
