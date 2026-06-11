@@ -31,11 +31,19 @@ website:
           - text: "数学建模"
             href: math-modeling.qmd
 
+      - text: "哲学"
+        menu: 
+          - text : "阿尔都塞"
+            href : Althusser.qmd
+
     right:
       - text: "About"
         href: about.qmd
       - icon: github
         href: https://github.com/eros-prc
-
-
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
 
