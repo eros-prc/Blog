@@ -1,7 +1,7 @@
 ---
 title: "肺癌数据生存分析"
 subtitle: "缺失处理、多重插补与 Cox 比例风险模型"
-author: "24统计Eros"
+author: "Eros"
 date: 2026-05-30
 lang: zh
 

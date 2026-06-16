@@ -35,6 +35,8 @@ website:
         menu: 
           - text : "阿尔都塞"
             href : Althusser.qmd
+          - text : "柏拉图"
+            href : philosophy.qmd
 
     right:
       - text: "About"

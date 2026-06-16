@@ -1,0 +1,1030 @@
+---
+title: "强化学习概述"
+author: "Eros"
+date: "2026-06-16"
+image: "image.png"
+categories: [强化学习]
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: false
+    code-fold: true
+    code-tools: true
+    theme: cosmo
+    self-contained: true
+execute:
+  echo: true
+  warning: false
+  message: false
+jupyter: python3
+---
+
+# 课程导入：为什么要学习强化学习？
+
+
+> 强化学习研究的是：一个智能体如何通过与环境不断交互，在奖励反馈中学会做出更好的长期决策。
+
+强化学习的英文是 **Reinforcement Learning**，简称 **RL**。它和监督学习、无监督学习最大的区别在于：强化学习不是直接学习标准答案，而是在不断试错中学习“怎么做决策”。
+
+举几个直观例子：
+
+- 打游戏：当前画面是状态，按键是动作，得分是奖励。
+- 机器人走路：机器人的位置和姿态是状态，电机控制是动作，是否摔倒或前进距离是奖励。
+- 自动驾驶：路况、车速、障碍物是状态，转向、刹车、加速是动作，安全到达目的地是奖励。
+- 推荐系统：用户当前兴趣是状态，推荐内容是动作，点击、停留时长和满意度是奖励。
+- 学习计划：当前学习水平是状态，选择复习哪门课是动作，成绩提升是奖励。
+
+强化学习最重要的特点是：
+
+> 没有人直接告诉智能体每一步应该怎么做，它需要通过和环境交互，根据奖励不断调整自己的行为。
+
+## 强化学习与其他机器学习方法的区别
+
+| 学习类型 | 数据形式 | 核心目标 | 典型例子 |
+|---|---|---|---|
+| 监督学习 | 输入和标签 | 学会预测 | 图像分类、房价预测 |
+| 无监督学习 | 只有数据，没有标签 | 发现结构 | 聚类、降维 |
+| 强化学习 | 状态、动作、奖励 | 学会决策 | 游戏 AI、机器人控制 |
+
+监督学习更像“老师给标准答案”；强化学习更像“自己试错，做得好就奖励，做得差就惩罚”。
+
+例如，训练一个识别猫狗的模型时，监督学习会告诉模型每张图片是猫还是狗；但训练一个玩游戏的智能体时，通常不会告诉它“这一帧必须按左键”，而是告诉它最后得了多少分。
+
+所以强化学习的核心不是单纯预测，而是**序列决策**。
+
+---
+
+# 一、强化学习的基本框架
+
+强化学习通常包含五个基本要素：智能体、环境、状态、动作和奖励。
+
+## 1.1 Agent 与 Environment
+
+**Agent** 是智能体，也就是做决策的主体。例如游戏 AI、机器人、自动驾驶汽车、推荐系统或大模型智能体。
+
+**Environment** 是环境，也就是智能体所处的外部世界。智能体采取动作后，环境会发生变化，并返回新的状态和奖励。
+
+强化学习的基本循环如下：
+
+```{mermaid}
+flowchart LR
+    A[Agent 智能体] -->|Action 动作| B[Environment 环境]
+    B -->|State 状态| A
+    B -->|Reward 奖励| A
+```
+
+这个过程可以描述为：
+
+1. 智能体观察当前状态 $S_t$；
+2. 根据策略 $\pi$ 选择动作 $A_t$；
+3. 环境接收动作后转移到新状态 $S_{t+1}$；
+4. 环境给出奖励 $R_{t+1}$；
+5. 智能体根据奖励调整自己的策略；
+6. 重复以上过程。
+
+## 1.2 State、Action、Reward 和 Policy
+
+状态记作 $S_t$，表示时刻 $t$ 环境的信息。例如游戏画面、机器人位置、棋盘局面、用户当前兴趣等。
+
+动作记作 $A_t$，表示智能体在当前状态下采取的行为。例如游戏中向左、向右、跳跃，自动驾驶中加速、刹车、转向。
+
+奖励记作 $R_{t+1}$，表示智能体采取动作之后，环境给出的反馈。奖励可以是正的，也可以是负的。
+
+策略记作 $\pi$，它描述智能体在某个状态下应该采取什么动作。
+
+如果策略是确定性的，可以写成：
+
+$$
+a = \pi(s)
+$$
+
+表示在状态 $s$ 下直接选择动作 $a$。
+
+如果策略是随机性的，可以写成：
+
+$$
+\pi(a|s)
+$$
+
+表示在状态 $s$ 下选择动作 $a$ 的概率。
+
+强化学习的目标是找到一个好策略，使智能体获得尽可能大的长期累计奖励。
+
+---
+
+# 二、MDP、回报与价值函数
+
+强化学习的数学基础通常是 **马尔可夫决策过程**，英文是 Markov Decision Process，简称 **MDP**。
+
+## 2.1 马尔可夫决策过程 MDP
+
+MDP 可以写成一个五元组：
+
+$$
+(S, A, P, R, \gamma)
+$$
+
+其中：
+
+- $S$：状态集合；
+- $A$：动作集合；
+- $P$：状态转移概率；
+- $R$：奖励函数；
+- $\gamma$：折扣因子。
+
+状态转移概率记作：
+
+$$
+P(s'|s,a)
+$$
+
+它表示当前处于状态 $s$，采取动作 $a$，下一步转移到状态 $s'$ 的概率。
+
+奖励函数可以写成：
+
+$$
+R(s,a,s')
+$$
+
+表示从状态 $s$ 出发，采取动作 $a$，到达状态 $s'$ 后得到的奖励。
+
+折扣因子记作：
+
+$$
+\gamma \in [0,1]
+$$
+
+它衡量未来奖励的重要程度：
+
+- $\gamma = 0$：只关心眼前奖励；
+- $\gamma$ 接近 $1$：非常重视长期奖励；
+- 实际应用中常取 $0.9$、$0.95$、$0.99$。
+
+为什么需要折扣因子？一方面，未来奖励通常具有不确定性；另一方面，折扣因子也可以让无限期回报在数学上更容易收敛。
+
+## 2.2 回报 Return
+
+强化学习不是只看一步奖励，而是看从当前时刻开始的长期累计奖励。
+
+假设从时刻 $t$ 开始，智能体得到的奖励序列为：
+
+$$
+R_{t+1}, R_{t+2}, R_{t+3}, \cdots
+$$
+
+那么从时刻 $t$ 开始的折扣回报定义为：
+
+$$
+G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \gamma^3 R_{t+4} + \cdots
+$$
+
+其中：
+
+- $G_t$：从时刻 $t$ 开始的累计折扣回报；
+- $R_{t+1}$：下一步得到的即时奖励；
+- $\gamma$：折扣因子。
+
+观察上面的式子：
+
+$$
+G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots
+$$
+
+而下一时刻的回报是：
+
+$$
+G_{t+1} = R_{t+2} + \gamma R_{t+3} + \gamma^2 R_{t+4} + \cdots
+$$
+
+所以：
+
+$$
+\gamma G_{t+1}
+=
+\gamma R_{t+2}
++
+\gamma^2 R_{t+3}
++
+\gamma^3 R_{t+4}
++
+\cdots
+$$
+
+因此可以得到回报的递推形式：
+
+$$
+G_t = R_{t+1} + \gamma G_{t+1}
+$$
+
+这个递推式非常重要，因为贝尔曼方程就是从它推导出来的。
+
+一句话理解：
+
+> 当前总回报 = 下一步奖励 + 折扣后的未来总回报。
+
+## 2.3 价值函数 Value Function
+
+强化学习中有两个非常重要的价值函数：状态价值函数和动作价值函数。
+
+状态价值函数定义为：
+
+$$
+V_\pi(s) = \mathbb{E}_\pi[G_t \mid S_t = s]
+$$
+
+意思是：如果当前处于状态 $s$，以后都按照策略 $\pi$ 行动，那么从现在开始能获得的长期平均回报是多少。
+
+动作价值函数定义为：
+
+$$
+Q_\pi(s,a) = \mathbb{E}_\pi[G_t \mid S_t=s, A_t=a]
+$$
+
+意思是：如果当前处于状态 $s$，先采取动作 $a$，之后再按照策略 $\pi$ 行动，那么长期平均回报是多少。
+
+二者区别如下：
+
+| 函数 | 评价对象 | 用途 |
+|---|---|---|
+| $V_\pi(s)$ | 状态 | 判断这个状态好不好 |
+| $Q_\pi(s,a)$ | 状态-动作对 | 判断这个动作值不值得做 |
+
+实际做决策时，$Q$ 函数更直接。因为在一个状态下，只要比较所有动作的 $Q$ 值，就可以选择 $Q$ 值最大的动作：
+
+$$
+a^* = \arg\max_a Q(s,a)
+$$
+
+---
+
+# 三、贝尔曼方程详细推导
+
+贝尔曼方程是强化学习的核心。很多强化学习算法都可以看成是在求解、近似或改进贝尔曼方程。
+
+## 3.1 状态价值函数的贝尔曼期望方程
+
+前面已经得到回报递推式：
+
+$$
+G_t = R_{t+1} + \gamma G_{t+1}
+$$
+
+状态价值函数定义为：
+
+$$
+V_\pi(s) = \mathbb{E}_\pi[G_t \mid S_t=s]
+$$
+
+把 $G_t$ 的递推式代入：
+
+$$
+V_\pi(s)
+=
+\mathbb{E}_\pi[
+R_{t+1}
++
+\gamma G_{t+1}
+\mid S_t=s
+]
+$$
+
+利用期望的线性性质：
+
+$$
+V_\pi(s)
+=
+\mathbb{E}_\pi[
+R_{t+1}
+\mid S_t=s
+]
++
+\gamma
+\mathbb{E}_\pi[
+G_{t+1}
+\mid S_t=s
+]
+$$
+
+但 $G_{t+1}$ 是从下一状态 $S_{t+1}$ 开始的长期回报。根据价值函数定义：
+
+$$
+V_\pi(S_{t+1}) = \mathbb{E}_\pi[G_{t+1} \mid S_{t+1}]
+$$
+
+所以可以写成：
+
+$$
+V_\pi(s)
+=
+\mathbb{E}_\pi[
+R_{t+1}
++
+\gamma V_\pi(S_{t+1})
+\mid S_t=s
+]
+$$
+
+这就是状态价值函数的贝尔曼期望方程。
+
+它的直观含义是：
+
+> 一个状态的价值 = 下一步即时奖励 + 下一状态价值的折扣。
+
+## 3.2 贝尔曼期望方程的求和形式
+
+在状态 $s$ 下，智能体按照策略 $\pi$ 选择动作 $a$，概率是：
+
+$$
+\pi(a|s)
+$$
+
+然后环境根据转移概率：
+
+$$
+P(s'|s,a)
+$$
+
+转移到下一个状态 $s'$。
+
+因此，状态价值函数可以展开为：
+
+$$
+V_\pi(s)
+=
+\sum_a \pi(a|s)
+\sum_{s'} P(s'|s,a)
+[
+R(s,a,s') + \gamma V_\pi(s')
+]
+$$
+
+这个式子中的每一部分都可以解释为：
+
+- $\sum_a \pi(a|s)$：考虑当前策略可能选择的所有动作；
+- $\sum_{s'}P(s'|s,a)$：考虑动作之后可能到达的所有下一状态；
+- $R(s,a,s')$：当前动作带来的即时奖励；
+- $\gamma V_\pi(s')$：下一状态的长期价值；
+- 两层求和：对所有可能动作和可能下一状态求平均。
+
+## 3.3 动作价值函数的贝尔曼期望方程
+
+动作价值函数定义为：
+
+$$
+Q_\pi(s,a)
+=
+\mathbb{E}_\pi[G_t \mid S_t=s,A_t=a]
+$$
+
+同样利用：
+
+$$
+G_t = R_{t+1} + \gamma G_{t+1}
+$$
+
+可得：
+
+$$
+Q_\pi(s,a)
+=
+\mathbb{E}_\pi[
+R_{t+1}
++
+\gamma G_{t+1}
+\mid S_t=s,A_t=a
+]
+$$
+
+下一步到达 $S_{t+1}=s'$ 后，智能体会根据策略 $\pi$ 选择下一个动作 $a'$，所以：
+
+$$
+Q_\pi(s,a)
+=
+\sum_{s'}P(s'|s,a)
+\left[
+R(s,a,s')
++
+\gamma
+\sum_{a'}\pi(a'|s')Q_\pi(s',a')
+\right]
+$$
+
+这就是 $Q$ 函数的贝尔曼期望方程。
+
+## 3.4 贝尔曼最优方程
+
+强化学习最终想要找到最优策略。
+
+最优状态价值函数定义为：
+
+$$
+V_*(s) = \max_\pi V_\pi(s)
+$$
+
+表示在所有可能策略中，状态 $s$ 能达到的最大长期回报。
+
+最优动作价值函数定义为：
+
+$$
+Q_*(s,a) = \max_\pi Q_\pi(s,a)
+$$
+
+表示在状态 $s$ 下先采取动作 $a$，之后采用最优策略时，能得到的最大长期回报。
+
+在最优情况下，智能体每一步都应该选择让长期价值最大的动作。因此：
+
+$$
+V_*(s)
+=
+\max_a
+\sum_{s'}P(s'|s,a)
+[
+R(s,a,s')+\gamma V_*(s')
+]
+$$
+
+这就是状态价值函数的贝尔曼最优方程。
+
+对于 $Q$ 函数：
+
+$$
+Q_*(s,a)
+=
+\sum_{s'}P(s'|s,a)
+[
+R(s,a,s')
++
+\gamma \max_{a'} Q_*(s',a')
+]
+$$
+
+这个公式非常关键。Q-Learning 的更新公式就是从它来的：
+
+$$
+Q(S_t,A_t)
+\leftarrow
+Q(S_t,A_t)
++
+\alpha
+[
+R_{t+1}
++
+\gamma \max_{a'}Q(S_{t+1},a')
+-
+Q(S_t,A_t)
+]
+$$
+
+其中：
+
+$$
+R_{t+1}
++
+\gamma \max_{a'}Q(S_{t+1},a')
+$$
+
+可以理解为新的目标值；
+
+$$
+R_{t+1}
++
+\gamma \max_{a'}Q(S_{t+1},a')
+-
+Q(S_t,A_t)
+$$
+
+就是当前估计和新目标之间的误差。
+
+贝尔曼方程的核心思想可以总结为：
+
+> 现在好不好，不只看现在得到多少，还要看未来能走到哪里。
+
+---
+
+# 四、从贝尔曼方程到经典算法
+
+贝尔曼方程告诉我们价值之间的递推关系。不同算法的区别主要在于：
+
+> 如何估计价值？如何改进策略？是否知道环境模型？是否使用神经网络？
+
+## 4.1 动态规划、蒙特卡洛与时间差分
+
+如果我们知道环境模型，也就是知道 $P(s'|s,a)$ 和 $R(s,a,s')$，那么可以直接用动态规划方法求解。
+
+典型方法包括：
+
+- 策略评估；
+- 策略改进；
+- 策略迭代；
+- 价值迭代。
+
+价值迭代公式为：
+
+$$
+V_{k+1}(s)
+=
+\max_a
+\sum_{s'}P(s'|s,a)
+[
+R(s,a,s')
++
+\gamma V_k(s')
+]
+$$
+
+反复迭代，价值函数会逐渐收敛到最优价值函数。
+
+蒙特卡洛方法不需要知道状态转移概率，它的思想是：
+
+> 多次完整地经历一局游戏，然后把某个状态之后真实得到的回报取平均。
+
+如果某个状态 $s$ 出现了很多次，对应回报分别是 $G_1, G_2, \cdots, G_n$，那么可以估计：
+
+$$
+V(s) \approx \frac{1}{n}\sum_{i=1}^n G_i
+$$
+
+时间差分学习，英文是 Temporal Difference Learning，简称 TD。TD 方法结合了动态规划和蒙特卡洛方法的优点。
+
+TD 更新公式为：
+
+$$
+V(S_t)
+\leftarrow
+V(S_t)
++
+\alpha
+[
+R_{t+1}
++
+\gamma V(S_{t+1})
+-
+V(S_t)
+]
+$$
+
+其中：
+
+$$
+\delta_t =
+R_{t+1}
++
+\gamma V(S_{t+1})
+-
+V(S_t)
+$$
+
+称为 TD 误差。
+
+TD 方法的核心思想是：
+
+> 不用等一局结束，只走一步就可以更新当前状态价值。
+
+## 4.2 SARSA 与 Q-Learning
+
+SARSA 是一种 on-policy 算法。它的名字来自一次更新中用到的五个量：
+
+$$
+S_t, A_t, R_{t+1}, S_{t+1}, A_{t+1}
+$$
+
+SARSA 的更新公式为：
+
+$$
+Q(S_t,A_t)
+\leftarrow
+Q(S_t,A_t)
++
+\alpha
+[
+R_{t+1}
++
+\gamma Q(S_{t+1},A_{t+1})
+-
+Q(S_t,A_t)
+]
+$$
+
+SARSA 学的是当前实际执行策略的价值。也就是说，下一步实际选了什么动作，它就用什么动作来更新。
+
+Q-Learning 是一种 off-policy 算法。更新公式为：
+
+$$
+Q(S_t,A_t)
+\leftarrow
+Q(S_t,A_t)
++
+\alpha
+[
+R_{t+1}
++
+\gamma \max_{a'}Q(S_{t+1},a')
+-
+Q(S_t,A_t)
+]
+$$
+
+SARSA 和 Q-Learning 最大区别在于：
+
+- SARSA 用的是实际执行的下一动作 $A_{t+1}$；
+- Q-Learning 用的是下一状态下价值最大的动作 $\max_{a'}Q(S_{t+1},a')$。
+
+所以可以简单理解为：
+
+> SARSA 学的是“我实际怎么做”；Q-Learning 学的是“理论上最优应该怎么做”。
+
+---
+
+## 4.3目前强化学习主要分类
+目前强化学习分类有如下一些分法，如下图所示：
+![](type.png){width=100%}
+
+# 五、Python 案例：GridWorld 价值迭代
+
+下面用一个 $4 \times 4$ 的网格世界演示价值迭代。
+
+## 5.1 问题设置
+
+我们设置一个简单环境：
+
+- 网格大小：$4 \times 4$；
+- 终点是右下角；
+- 每走一步奖励为 $-1$；
+- 到达终点后奖励为 $0$；
+- 撞墙则停在原地；
+- 折扣因子 $\gamma = 0.9$。
+
+动作包括上、下、左、右。我们希望通过价值迭代求出每个格子的价值，并得到最优移动方向。
+
+## 5.2 价值迭代代码
+
+下面这段代码可以直接在 Quarto 中运行。
+
+```{python}
+import numpy as np
+
+# 设置网格大小
+n_rows, n_cols = 4, 4
+
+# 终点状态：右下角
+terminal_state = (3, 3)
+
+# 折扣因子
+gamma = 0.9
+
+# 动作：上、下、左、右
+actions = {
+    "↑": (-1, 0),
+    "↓": (1, 0),
+    "←": (0, -1),
+    "→": (0, 1)
+}
+
+def step(state, action):
+    """
+    输入当前状态和动作，返回下一个状态和奖励。
+    """
+    if state == terminal_state:
+        return state, 0
+
+    dr, dc = actions[action]
+    r, c = state
+    nr, nc = r + dr, c + dc
+
+    # 如果撞墙，则保持原地不动
+    if nr < 0 or nr >= n_rows or nc < 0 or nc >= n_cols:
+        nr, nc = r, c
+
+    next_state = (nr, nc)
+
+    # 每走一步奖励为 -1
+    reward = -1
+
+    return next_state, reward
+
+# 初始化价值函数
+V = np.zeros((n_rows, n_cols))
+
+# 价值迭代
+theta = 1e-6
+max_iterations = 1000
+
+for iteration in range(max_iterations):
+    delta = 0
+    new_V = V.copy()
+
+    for r in range(n_rows):
+        for c in range(n_cols):
+            state = (r, c)
+
+            if state == terminal_state:
+                new_V[r, c] = 0
+                continue
+
+            action_values = []
+
+            for action in actions:
+                next_state, reward = step(state, action)
+                nr, nc = next_state
+                value = reward + gamma * V[nr, nc]
+                action_values.append(value)
+
+            # 贝尔曼最优方程：选择价值最大的动作
+            new_V[r, c] = max(action_values)
+            delta = max(delta, abs(new_V[r, c] - V[r, c]))
+
+    V = new_V
+
+    if delta < theta:
+        break
+
+print("迭代次数：", iteration + 1)
+print("最终状态价值函数：")
+print(np.round(V, 2))
+```
+
+## 5.3 提取最优策略
+
+有了价值函数后，我们可以在每个状态比较四个动作的价值，选择最好的动作。
+
+```{python}
+policy = np.empty((n_rows, n_cols), dtype=object)
+
+for r in range(n_rows):
+    for c in range(n_cols):
+        state = (r, c)
+
+        if state == terminal_state:
+            policy[r, c] = "G"
+            continue
+
+        best_action = None
+        best_value = -np.inf
+
+        for action in actions:
+            next_state, reward = step(state, action)
+            nr, nc = next_state
+            value = reward + gamma * V[nr, nc]
+
+            if value > best_value:
+                best_value = value
+                best_action = action
+
+        policy[r, c] = best_action
+
+print("最优策略：")
+print(policy)
+```
+
+## 5.4 可视化
+
+
+```{python}
+import matplotlib.pyplot as plt
+from matplotlib import font_manager
+
+def set_chinese_font():
+    """
+    自动设置 Matplotlib 中文字体，避免中文乱码。
+    Windows 常见字体：Microsoft YaHei、SimHei
+    macOS 常见字体：PingFang SC、Heiti SC
+    Linux 常见字体：Noto Sans CJK SC、WenQuanYi Micro Hei
+    """
+    candidate_fonts = [
+        "Microsoft YaHei",
+        "SimHei",
+        "PingFang SC",
+        "Heiti SC",
+        "Noto Sans CJK SC",
+        "WenQuanYi Micro Hei",
+        "Arial Unicode MS"
+    ]
+
+    available_fonts = {font.name for font in font_manager.fontManager.ttflist}
+
+    for font in candidate_fonts:
+        if font in available_fonts:
+            plt.rcParams["font.sans-serif"] = [font]
+            break
+
+    # 解决负号显示问题
+    plt.rcParams["axes.unicode_minus"] = False
+
+set_chinese_font()
+
+fig, ax = plt.subplots(figsize=(6, 6))
+
+# 画网格
+ax.set_xlim(0, n_cols)
+ax.set_ylim(0, n_rows)
+ax.set_xticks(np.arange(0, n_cols + 1, 1))
+ax.set_yticks(np.arange(0, n_rows + 1, 1))
+ax.grid(True)
+
+# 调整坐标方向，使第一行显示在上方
+ax.invert_yaxis()
+
+# 隐藏刻度标签
+ax.set_xticklabels([])
+ax.set_yticklabels([])
+
+# 写入价值和策略
+for r in range(n_rows):
+    for c in range(n_cols):
+        if (r, c) == terminal_state:
+            text = "终点\n0"
+        else:
+            text = f"{policy[r, c]}\n{V[r, c]:.2f}"
+
+        ax.text(
+            c + 0.5,
+            r + 0.5,
+            text,
+            ha="center",
+            va="center",
+            fontsize=13
+        )
+
+ax.set_title("GridWorld 最优策略与状态价值", fontsize=14)
+plt.show()
+```
+
+## 5.5 代码结果解释
+
+输出的价值函数中，越接近终点的格子，价值越高。
+
+因为每走一步都会得到 $-1$ 的惩罚，所以距离终点越远，未来累计惩罚越多，价值就越低。
+
+最优策略中的箭头表示：
+
+> 在当前格子中，智能体应该往哪个方向走，才能让长期回报最大。
+
+这个例子对应的正是贝尔曼最优方程：
+
+$$
+V_*(s)
+=
+\max_a
+[
+R(s,a,s')
++
+\gamma V_*(s')
+]
+$$
+
+在这个确定性环境中，下一状态 $s'$ 是确定的，所以不需要对 $s'$ 求概率期望。
+
+---
+
+# 六、现代强化学习算法核心思想
+
+前面讲的表格型方法适合状态和动作都比较少的问题。但是现实任务往往非常复杂，例如游戏画面、机器人传感器、自动驾驶路况、大模型上下文等。
+
+这时候无法为每个状态都建立一张表，所以需要用函数近似，尤其是神经网络。
+
+## 6.1 DQN：深度 Q 网络
+
+DQN 的思想是用神经网络近似 $Q$ 函数：
+
+$$
+Q(s,a;\theta)
+$$
+
+其中 $\theta$ 是神经网络参数。
+
+DQN 可以理解为：
+
+> Q-Learning + 深度神经网络。
+
+DQN 的输入可以是游戏画面，输出是每个动作的 $Q$ 值。
+
+DQN 的核心技术包括：
+
+- 经验回放；
+- 目标网络；
+- 用神经网络拟合 $Q$ 值。
+
+经验回放会把智能体经历过的转移样本：
+
+$$
+(S_t,A_t,R_{t+1},S_{t+1})
+$$
+
+存入经验池中，然后随机抽取一批样本训练神经网络。这样可以打乱数据相关性，提高训练稳定性。
+
+目标网络则用于缓解训练不稳定问题。如果用同一个网络同时产生当前估计和目标值，训练会非常容易震荡。DQN 因此引入目标网络，隔一段时间再更新目标网络参数。
+
+## 6.2 Policy Gradient
+
+Q-Learning 这类方法主要学习价值函数，然后根据价值函数选择动作。
+
+Policy Gradient 方法则是直接学习策略：
+
+$$
+\pi_\theta(a|s)
+$$
+
+其中 $\theta$ 是策略网络参数。
+
+它的思想是：
+
+> 如果某个动作带来了更高回报，就提高以后在类似状态下选择这个动作的概率。
+
+Policy Gradient 特别适合连续动作空间。例如机器人控制中，动作可能不是“上、下、左、右”，而是具体的电机力矩，这种动作是连续的，无法简单枚举。
+
+## 6.3 Actor-Critic
+
+Actor-Critic 方法把强化学习分成两个部分：
+
+- Actor：负责选择动作；
+- Critic：负责评价动作。
+
+可以这样理解：
+
+> Actor 是演员，负责表演；Critic 是评论家，负责打分。
+
+Actor 根据当前策略选择动作，Critic 根据价值函数判断这个动作好不好。
+
+如果 Critic 认为这个动作比预期更好，那么 Actor 就增加以后选择类似动作的概率；如果 Critic 认为这个动作比预期更差，那么 Actor 就减少选择类似动作的概率。
+
+常见 Actor-Critic 相关算法包括 A2C、A3C、DDPG、TD3、PPO 和 SAC。
+
+## 6.4 常见算法对比
+
+| 算法 | 类型 | 核心思想 | 适用场景 |
+|---|---|---|---|
+| Dynamic Programming | Model-Based | 已知环境模型，用贝尔曼方程递推 | 小规模、模型已知 |
+| Monte Carlo | Model-Free | 通过完整回合的平均回报估计价值 | 有终止状态的任务 |
+| TD Learning | Model-Free | 走一步就更新价值 | 在线学习 |
+| SARSA | On-Policy | 按实际执行策略更新 Q 值 | 需要考虑探索行为 |
+| Q-Learning | Off-Policy | 用下一状态最大 Q 值更新 | 离散动作 |
+| DQN | Value-Based | 用神经网络近似 Q 函数 | 图像输入、离散动作 |
+| Policy Gradient | Policy-Based | 直接优化策略概率 | 连续动作 |
+| Actor-Critic | Hybrid | Actor 决策，Critic 评价 | 复杂控制任务 |
+| PPO | Policy Optimization | 限制策略更新幅度，提高稳定性 | 通用深度强化学习 |
+| SAC | Maximum Entropy RL | 最大化奖励同时保持探索性 | 连续控制 |
+
+---
+
+# 七、应用场景与研究前沿
+
+强化学习已经从最初的游戏和控制问题，扩展到机器人、推荐系统、自动驾驶、大语言模型和具身智能等方向。
+
+## 7.1 现实应用
+
+强化学习在游戏 AI 中有很多经典案例，例如 Atari 游戏、AlphaGo、AlphaZero 等。游戏环境规则明确、奖励清楚、可以大量模拟，因此非常适合作为强化学习算法的测试平台。
+
+在机器人控制中，强化学习可以用于机械臂抓取、机器人行走、无人机控制、机器人导航和工业自动化控制。但现实机器人试错成本高，因此常见做法是先在仿真环境中训练，再迁移到真实机器人上，这类问题也被称为 sim-to-real。
+
+在自动驾驶中，强化学习可以用于变道决策、路径规划、车速控制、多车交互和路口通行策略。但自动驾驶对安全性要求极高，因此实际研究中通常要结合仿真平台、安全约束和离线数据。
+
+在推荐系统中，强化学习不只关注用户是否点击，还关注用户长期满意度、内容多样性和用户留存。它可以把推荐看成序列决策问题。
+
+在大语言模型中，RLHF 是一个重要方向。RLHF 的全称是 Reinforcement Learning from Human Feedback，即“基于人类反馈的强化学习”。它通常先收集人类偏好数据，训练奖励模型，再利用强化学习优化语言模型，使模型回答更符合人类偏好。
+
+## 7.2 研究前沿
+
+当前强化学习的研究前沿主要包括以下方向。
+
+**Offline RL：离线强化学习。**  
+传统强化学习需要智能体不断和环境交互，但在医疗、金融、自动驾驶和工业控制中，在线试错往往成本很高。离线强化学习希望只利用已有历史数据学习策略。
+
+**Safe RL：安全强化学习。**  
+强化学习需要探索，但探索可能带来危险。安全强化学习希望在学习过程中满足安全约束，例如机器人不能摔倒，自动驾驶不能撞车，工业系统不能超过安全温度。
+
+**Multi-Agent RL：多智能体强化学习。**  
+多智能体强化学习研究多个智能体同时学习的问题，应用包括多机器人协作、无人机集群、交通信号灯控制、多车自动驾驶和博弈对抗。
+
+**Model-Based RL：基于模型的强化学习。**  
+Model-Free RL 直接学习价值函数或策略，而 Model-Based RL 会先学习一个环境模型：
+
+$$
+\hat{P}(s'|s,a)
+$$
+
+然后利用这个模型进行规划。它的思想是：先学会世界如何变化，再在模型里模拟未来。
+
+**World Models：世界模型。**  
+世界模型希望智能体能够在内部建立一个“想象中的环境”，从而在脑海中模拟未来。这类似人类做决定时会先想：如果我这样做，接下来可能会发生什么？
+
+**强化学习与大模型智能体。**  
+强化学习和大语言模型结合后，出现了 RLHF、RLAIF、RLVR、工具使用智能体、多智能体协作、具身智能和通用机器人策略等方向。
+
+---
+
+
+> 强化学习的本质，不是让机器记住标准答案，而是让机器学会在不断变化的环境中做出更好的长期决策。
+
+---
+
+# 参考资料
+
+1. Richard S. Sutton and Andrew G. Barto, *Reinforcement Learning: An Introduction*, 2nd Edition, MIT Press, 2018.  
+2. Volodymyr Mnih et al., *Playing Atari with Deep Reinforcement Learning*, 2013.  
+3. David Silver et al., *Mastering the game of Go with deep neural networks and tree search*, Nature, 2016.  
+4. John Schulman et al., *Proximal Policy Optimization Algorithms*, 2017.  
+5. Tuomas Haarnoja et al., *Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor*, 2018.  
+6. Paul Christiano et al., *Deep Reinforcement Learning from Human Preferences*, 2017.  
+7. Long Ouyang et al., *Training language models to follow instructions with human feedback*, NeurIPS, 2022.  
+8. Danijar Hafner et al., *Mastering diverse control tasks through world models*, Nature, 2025.  
