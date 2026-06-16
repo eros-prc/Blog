@@ -82,9 +82,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -214,6 +214,10 @@ window.Quarto = {
     <a class="dropdown-item" href="./Althusser.html">
  <span class="dropdown-text">阿尔都塞</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./philosophy.html">
+ <span class="dropdown-text">柏拉图</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -239,8 +243,14 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#文章列表" id="toc-文章列表" class="nav-link active" data-scroll-target="#文章列表">文章列表</a></li>
+  </ul>
+</nav>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="JUU1JUJDJUJBJUU1JThDJTk2JUU1JUFEJUE2JUU0JUI5JUEw">强化学习 <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -263,14 +273,57 @@ window.Quarto = {
 </header>
 
 
-<p>这里整理 Python 基础、NumPy、pandas、matplotlib、scikit-learn 和数据分析项目相关内容。</p>
+<div class="hero-section">
+<section id="python-数据分析学习笔记" class="level2 hero-text">
+<h2 class="anchored" data-anchor-id="python-数据分析学习笔记">Python 数据分析学习笔记</h2>
+<p>这里整理 Python 基础、NumPy、pandas、matplotlib、scikit-learn 以及数据分析项目、可视化案例和机器学习入门等相关内容。</p>
+<blockquote class="blockquote">
+<p>用 Python 记录数据分析的学习过程。</p>
+</blockquote>
+</section>
+<div class="hero-image">
+<p><img src="images/python.png" class="img-fluid"></p>
+</div>
+</div>
+<section id="文章列表" class="level2">
+<h2 class="anchored" data-anchor-id="文章列表">文章列表</h2>
 
 
 
+</section>
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="JUU1JUJDJUJBJUU1JThDJTk2JUU1JUFEJUE2JUU0JUI5JUEw" data-listing-date-sort="1781539200000" data-listing-file-modified-sort="1781626506313" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1797">
+<div class="thumbnail"><a href="./posts/python/reinforcement_review/index.html" class="no-external">
 
+<img loading="lazy" src="./posts/python/reinforcement_review/image.png" class="thumbnail-image">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/python/reinforcement_review/index.html" class="no-external">强化学习概述</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('JUU1JUJDJUJBJUU1JThDJTk2JUU1JUFEJUE2JUU0JUI5JUEw'); return false;">强化学习</div>
+
+</div>
+<div class="delink listing-description"><a href="./posts/python/reinforcement_review/index.html" class="no-external">
+强化学习研究的是：一个智能体如何通过与环境不断交互，在奖励反馈中学会做出更好的长期决策。
+</a></div>
+</div>
+<div class="metadata">
+<a href="./posts/python/reinforcement_review/index.html" class="no-external">
+<div class="listing-date">
+Jun 16, 2026
+</div>
+<div class="listing-author">
+Eros
+</div>
+</a>
+</div>
+</div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div></main> <!-- /main -->

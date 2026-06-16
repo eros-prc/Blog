@@ -4,7 +4,7 @@
     "href": "survival.html",
     "title": "生存分析",
     "section": "",
-    "text": "这里整理 Kaplan-Meier 曲线、Log-rank 检验、Cox 比例风险模型、多重插补和生存预测相关内容。\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n肺癌数据生存分析\n\n\n缺失处理、多重插补与 Cox 比例风险模型\n\n\n\n生存分析\n\nR语言\n\n统计学笔记\n\n\n\n本文基于肺癌患者生存数据，完整展示从缺失值处理、多重插补到 Cox 比例风险模型构建的分析流程。\n\n\n\n\n\nMay 30, 2026\n\n\n24统计Eros\n\n\n\n\n\nNo matching items"
+    "text": "这里整理 Kaplan-Meier 曲线、Log-rank 检验、Cox 比例风险模型、多重插补和生存预测相关内容。\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n肺癌数据生存分析\n\n\n缺失处理、多重插补与 Cox 比例风险模型\n\n\n\n生存分析\n\nR语言\n\n统计学笔记\n\n\n\n本文基于肺癌患者生存数据，完整展示从缺失值处理、多重插补到 Cox 比例风险模型构建的分析流程。\n\n\n\n\n\nMay 30, 2026\n\n\nEros\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "r.html",
@@ -140,25 +140,123 @@
     "text": "4.4 多重插补 PH 检验结果\n\n\n代码\nph_plot_data &lt;- ph_summary_final2 %&gt;%\n  mutate(\n    term = factor(term, levels = rev(term)),\n    label = paste0(\"n_sig = \", n_sig)\n  )\n\nggplot(ph_plot_data, aes(y = term)) +\n  geom_vline(\n    xintercept = 0.05,\n    linetype = 2,\n    color = \"red\"\n  ) +\n  geom_linerange(\n    aes(xmin = min_p, xmax = max_p),\n    linewidth = 1\n  ) +\n  geom_point(\n    aes(x = median_p),\n    size = 3\n  ) +\n  geom_text(\n    aes(x = max_p, label = label),\n    hjust = -0.1,\n    size = 4\n  ) +\n  labs(\n    title = \"最终模型的多重插补 PH 假设检验汇总\",\n    subtitle = \"横线表示各插补数据集 p 值范围，点表示中位数 p 值\",\n    x = \"PH 检验 p 值\",\n    y = \"变量\"\n  ) +\n  coord_cartesian(xlim = c(0, max(ph_plot_data$max_p) * 1.2)) +\n  theme_bw(base_size = 14)"
   },
   {
-    "objectID": "math-modeling.html",
-    "href": "math-modeling.html",
-    "title": "数学建模",
+    "objectID": "posts/philosophy/会饮篇/index.html",
+    "href": "posts/philosophy/会饮篇/index.html",
+    "title": "会饮篇",
     "section": "",
-    "text": "这里整理数学建模、运筹优化、线性规划、数值计算、MATLAB、LINGO 和 Mathematica 相关内容。\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "柏拉图的《会饮篇》表面上写的是一场宴会。众人喝酒、谈话，并约定每个人都要发表一篇赞美 Eros 的演说。Eros 通常可以理解为“爱”或“爱神”，但在《会饮篇》中，它显然不只是普通意义上的恋爱感情。\n这篇对话最有意思的地方在于：每个人都在谈爱，但每个人眼中的爱都不一样。有人把爱看成勇敢的来源，有人把爱分成高低贵贱，有人把爱理解为和谐秩序，有人把爱说成寻找另一半，也有人把爱赞美为美德本身。\n不过，这些观点虽然精彩，却更像是一步步铺垫。真正把 Eros 提升到哲学高度的人，是苏格拉底。苏格拉底并没有简单赞美爱情，而是反过来追问：爱到底意味着什么？如果爱是对某物的追求，那么爱者是否正是因为缺少它，才会去爱它？\n也正是在这个问题上，《会饮篇》从一场关于爱情的谈话，变成了关于欲望、缺乏、美、善与灵魂上升的哲学讨论。"
   },
   {
-    "objectID": "causal.html",
-    "href": "causal.html",
-    "title": "因果推断",
+    "objectID": "posts/philosophy/会饮篇/index.html#从一场宴会开始eros-到底是什么",
+    "href": "posts/philosophy/会饮篇/index.html#从一场宴会开始eros-到底是什么",
+    "title": "会饮篇",
     "section": "",
-    "text": "这里整理 PSM、IPTW、DID、IV、AIPW、TMLE、Causal Forest 等因果推断方法。\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "柏拉图的《会饮篇》表面上写的是一场宴会。众人喝酒、谈话，并约定每个人都要发表一篇赞美 Eros 的演说。Eros 通常可以理解为“爱”或“爱神”，但在《会饮篇》中，它显然不只是普通意义上的恋爱感情。\n这篇对话最有意思的地方在于：每个人都在谈爱，但每个人眼中的爱都不一样。有人把爱看成勇敢的来源，有人把爱分成高低贵贱，有人把爱理解为和谐秩序，有人把爱说成寻找另一半，也有人把爱赞美为美德本身。\n不过，这些观点虽然精彩，却更像是一步步铺垫。真正把 Eros 提升到哲学高度的人，是苏格拉底。苏格拉底并没有简单赞美爱情，而是反过来追问：爱到底意味着什么？如果爱是对某物的追求，那么爱者是否正是因为缺少它，才会去爱它？\n也正是在这个问题上，《会饮篇》从一场关于爱情的谈话，变成了关于欲望、缺乏、美、善与灵魂上升的哲学讨论。"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "Eros",
+    "objectID": "posts/philosophy/会饮篇/index.html#斐德罗爱情让人追求勇敢与荣誉",
+    "href": "posts/philosophy/会饮篇/index.html#斐德罗爱情让人追求勇敢与荣誉",
+    "title": "会饮篇",
+    "section": "斐德罗：爱情让人追求勇敢与荣誉",
+    "text": "斐德罗：爱情让人追求勇敢与荣誉\n斐德罗是第一个发言的人。他认为 Eros 是最古老、最值得尊敬的神之一，因为爱情能够激发人身上最好的品质。\n在他的理解里，爱会让人产生荣誉感。一个人在所爱之人面前，会更害怕表现得卑劣、懦弱和不光彩。相反，他会希望自己显得勇敢、高尚、值得被爱。所以，爱情在斐德罗这里不是单纯的情绪，而是一种道德力量。\n这种爱情观其实很接近我们今天常说的“好的爱情让人变好”。因为爱一个人，所以愿意承担责任；因为在意对方的目光，所以不愿意让自己堕落。斐德罗强调的不是爱情中的甜蜜，而是爱情带来的勇气和自我要求。\n不过，他的观点还停留在比较外在的层面。爱情让人勇敢，是因为人希望在爱人面前保持荣誉。也就是说，爱情的价值主要体现在社会评价和英雄行为上。它还没有深入到“人为什么会爱”这个问题。"
+  },
+  {
+    "objectID": "posts/philosophy/会饮篇/index.html#保萨尼亚斯爱情有高低之分",
+    "href": "posts/philosophy/会饮篇/index.html#保萨尼亚斯爱情有高低之分",
+    "title": "会饮篇",
+    "section": "保萨尼亚斯：爱情有高低之分",
+    "text": "保萨尼亚斯：爱情有高低之分\n保萨尼亚斯的发言比斐德罗更进一步。他认为，不能笼统地赞美所有爱情，因为爱情本身有高低之分。\n他区分了两种爱：一种是低级的、只追求身体欲望的爱；另一种是高级的、重视灵魂和德性的爱。前一种爱容易短暂、功利、变化无常，只关注外貌和身体吸引；后一种爱则更稳定，因为它关注的是人的品格、思想和灵魂。\n这个观点很重要，因为它提醒我们：并不是所有打着“爱”的名义的关系都值得肯定。有些所谓的爱，本质上只是占有、欲望或短暂的新鲜感；而真正较高层次的爱，应该帮助人变得更有德性，更能认识自己，也更能成就对方。\n保萨尼亚斯的思想已经开始接近苏格拉底。因为他也意识到，爱情不能停留在身体层面，真正值得追求的是灵魂层面的美。不过，他依然主要是在区分爱情的类型，还没有进一步说明为什么人会从身体之爱走向灵魂之爱。"
+  },
+  {
+    "objectID": "posts/philosophy/会饮篇/index.html#厄律克西马库斯爱情是一种和谐的秩序",
+    "href": "posts/philosophy/会饮篇/index.html#厄律克西马库斯爱情是一种和谐的秩序",
+    "title": "会饮篇",
+    "section": "厄律克西马库斯：爱情是一种和谐的秩序",
+    "text": "厄律克西马库斯：爱情是一种和谐的秩序\n厄律克西马库斯是一位医生，所以他的发言带有明显的医学和自然哲学色彩。他把 Eros 的范围扩展得很大，不只把它看作人与人之间的情感，还把它看成自然、身体、音乐和宇宙中的一种和谐力量。\n在他看来，健康的身体需要冷热、干湿等因素协调；音乐需要高低音之间形成和谐；四季运行也需要适当的秩序。同样，爱情也不是越强烈越好，而是需要节制、平衡和协调。\n这种爱情观比较理性。它不是从浪漫出发，而是从秩序出发。厄律克西马库斯提醒我们，爱如果没有节制，就可能变成混乱；欲望如果没有秩序，就可能伤害自己和他人。真正好的爱，应该像健康的身体和和谐的音乐一样，让不同部分达到平衡。\n不过，这种观点也有局限。它把爱情说得很宏大、很有秩序，却少了一点具体的人性冲突。现实中的爱往往并不总是和谐的，它可能包含渴望、痛苦、嫉妒、失控和自我矛盾。这个部分要到后面阿尔喀比亚德出场时才会被重新揭示出来。"
+  },
+  {
+    "objectID": "posts/philosophy/会饮篇/index.html#阿里斯托芬爱情是寻找失去的另一半",
+    "href": "posts/philosophy/会饮篇/index.html#阿里斯托芬爱情是寻找失去的另一半",
+    "title": "会饮篇",
+    "section": "阿里斯托芬：爱情是寻找失去的另一半",
+    "text": "阿里斯托芬：爱情是寻找失去的另一半\n阿里斯托芬的发言最有故事感，也最接近普通人对爱情的想象。他讲了一个著名的神话：人最初并不是现在这样，而是完整的圆形生命。后来因为人类冒犯神灵，被宙斯劈成两半。于是，每个人都在世界上寻找自己失去的另一半。\n在这个故事里，爱情的本质就是对完整的渴望。人之所以爱，是因为觉得自己不完整；遇到某个人时，仿佛找回了失去的部分，于是希望与对方重新结合。\n这种爱情观非常浪漫。它解释了为什么爱情常常带有一种强烈的命运感：好像某个人不是偶然出现的，而是本来就应该属于自己。它也解释了为什么人在爱情中会渴望亲密、陪伴和融合。\n但从苏格拉底的角度看，阿里斯托芬的观点还不够。因为它把爱情理解为寻找“自己的另一半”，重点仍然是让自己重新完整。这样的爱虽然动人，却容易把对方变成满足自我缺失的对象。苏格拉底后面要提出的，是一种更高层次的爱：爱不是只为了补全自己，而是为了通过美去追求善和不朽。"
+  },
+  {
+    "objectID": "posts/philosophy/会饮篇/index.html#阿伽通爱情是美丽年轻与善",
+    "href": "posts/philosophy/会饮篇/index.html#阿伽通爱情是美丽年轻与善",
+    "title": "会饮篇",
+    "section": "阿伽通：爱情是美丽、年轻与善",
+    "text": "阿伽通：爱情是美丽、年轻与善\n阿伽通的发言最华丽，也最像一篇正式的赞美诗。他把 Eros 描绘成最年轻、最美丽、最温柔、最善良的神。在他看来，爱本身就是美的，它带来智慧、勇敢、节制和正义。\n阿伽通的爱情观代表了人们对爱情最理想化的一面。人在爱中会感到世界变得柔和，语言变得诗意，生活变得明亮。爱情似乎天然与美好、青春、幸福联系在一起。\n但是，正是这种过度赞美，引出了苏格拉底的反问。苏格拉底并不满足于把 Eros 说成“美的”“善的”。他要问的是：如果 Eros 是对美的爱，那么它本身是否已经拥有美？如果它已经拥有美，为什么还要追求美？\n这个问题非常关键。因为它直接推翻了阿伽通式的赞美。苏格拉底要说明的是：Eros 并不是美本身，而是对美的渴望。它不是圆满，而是因为缺乏圆满，所以不断追求。"
+  },
+  {
+    "objectID": "posts/philosophy/会饮篇/index.html#苏格拉底eros-的本质不是拥有而是追求",
+    "href": "posts/philosophy/会饮篇/index.html#苏格拉底eros-的本质不是拥有而是追求",
+    "title": "会饮篇",
+    "section": "苏格拉底：Eros 的本质不是拥有，而是追求",
+    "text": "苏格拉底：Eros 的本质不是拥有，而是追求\n苏格拉底的发言是《会饮篇》的核心。他一开始并没有像前面几个人那样直接赞美 Eros，而是用追问的方式改变了整个讨论方向。\n他的基本问题是：爱是不是总是爱某个对象？如果一个人爱某物，那么他是不是还没有完全拥有这个东西？\n这个问题看似简单，却非常有力量。比如，一个人渴望智慧，正说明他还不完全智慧；一个人追求美，正说明他还没有真正拥有美。如果 Eros 是对美的爱，那么 Eros 本身就不能说是完全美的。它之所以爱美，恰恰是因为它缺少美。\n这样一来，Eros 的形象就和阿伽通所说的完全不同了。阿伽通认为 Eros 是完美的神，而苏格拉底认为 Eros 不是完满者，而是追求者。它既不是彻底贫乏，也不是完全富足，而是处在二者之间。\n这也是苏格拉底观点最深刻的地方：爱不是已经拥有，而是意识到自己没有；爱不是满足，而是渴望；爱不是终点，而是一种向上的运动。"
+  },
+  {
+    "objectID": "posts/philosophy/会饮篇/index.html#狄奥提玛eros-介于贫乏与富足之间",
+    "href": "posts/philosophy/会饮篇/index.html#狄奥提玛eros-介于贫乏与富足之间",
+    "title": "会饮篇",
+    "section": "狄奥提玛：Eros 介于贫乏与富足之间",
+    "text": "狄奥提玛：Eros 介于贫乏与富足之间\n苏格拉底接着借女祭司狄奥提玛之口，讲出了更完整的 Eros 理论。\n狄奥提玛认为，Eros 不是神，而是介于神与人之间的精灵。神是完满的，不需要追求；完全无知的人也不会追求智慧，因为他甚至不知道自己无知。真正会追求智慧的人，处在中间状态：他知道自己缺少智慧，所以才会渴望智慧。\nEros 正是这种中间状态的象征。\n狄奥提玛还讲到 Eros 的出身：它是“贫乏”和“富足”的孩子。因此，Eros 一方面贫乏、不满足、总是缺少某种东西；另一方面又机智、勇敢、善于追求，永远想办法靠近美好的事物。\n这个解释非常形象。爱情为什么常常既让人幸福，又让人痛苦？因为爱本身就是缺乏与追求的结合。一个人因为缺少，所以渴望；因为渴望，所以行动；因为行动，所以可能接近更高的东西。\n在这里，苏格拉底其实把爱情和哲学联系起来了。哲学也是一种处在无知和智慧之间的状态。哲学家不是已经拥有智慧的人，而是爱智慧、追求智慧的人。正因为如此，Eros 和哲学有着相似的结构：它们都不是占有，而是追求。"
+  },
+  {
+    "objectID": "posts/philosophy/会饮篇/index.html#爱真正追求的是什么",
+    "href": "posts/philosophy/会饮篇/index.html#爱真正追求的是什么",
+    "title": "会饮篇",
+    "section": "爱真正追求的是什么？",
+    "text": "爱真正追求的是什么？\n在狄奥提玛看来，人表面上爱美，实际上追求的是善。更准确地说，人希望“善永远属于自己”。\n这句话让爱情的意义变得更深。普通爱情往往表现为对某个人的喜欢、迷恋或占有，但苏格拉底认为，这些只是爱情的表层。更深层的爱，是人对美好事物的追求，是希望自己能够拥有善，并且让这种善持续下去。\n因此，Eros 和“不朽”有关。\n人是有限的，会衰老，也会死亡。但人又不甘心完全消失，所以人会通过不同方式追求不朽。身体层面上，人通过生育延续生命；精神层面上，人通过思想、作品、教育、制度和美德延续自己。\n这就把爱情从个人关系提升到了生命意义的层面。爱不是简单地“我想和你在一起”，而是人在有限生命中对永恒、美好和不朽的追求。"
+  },
+  {
+    "objectID": "posts/philosophy/会饮篇/index.html#爱的阶梯从身体之美到美本身",
+    "href": "posts/philosophy/会饮篇/index.html#爱的阶梯从身体之美到美本身",
+    "title": "会饮篇",
+    "section": "爱的阶梯：从身体之美到美本身",
+    "text": "爱的阶梯：从身体之美到美本身\n苏格拉底观点中最重要的部分，是狄奥提玛提出的“爱的阶梯”。\n人最初往往从爱一个具体的美丽身体开始。这是爱情最普通、最自然的起点。一个人被另一个人的外貌、气质或身体吸引，于是产生爱慕。\n但真正的爱不能停在这里。一个人应该进一步认识到，美并不只存在于某一个身体之中。许多身体都可以是美的，因此他会从迷恋一个身体，走向欣赏所有身体中的美。\n再往上，他会发现灵魂之美比身体之美更重要。一个人的思想、品格、勇气、节制和智慧，比外貌更持久，也更值得珍视。\n继续上升之后，他会看到制度、法律、知识和思想中的美。最后，他不再只是爱某个具体的人，也不只是爱某种具体的美，而是抵达对“美本身”的认识。\n这就是柏拉图式爱情最核心的地方：具体的爱情不是被否定，而是被看作通向更高之美的起点。身体之美不是错误，但如果人只停留在身体吸引上，就没有真正理解 Eros 的意义。真正的 Eros 应该推动灵魂上升，让人从具体的美走向普遍的美，从感性的爱走向理性的理解。"
+  },
+  {
+    "objectID": "posts/philosophy/会饮篇/index.html#苏格拉底爱情观的核心爱一个人是为了走向更高的美",
+    "href": "posts/philosophy/会饮篇/index.html#苏格拉底爱情观的核心爱一个人是为了走向更高的美",
+    "title": "会饮篇",
+    "section": "苏格拉底爱情观的核心：爱一个人，是为了走向更高的美",
+    "text": "苏格拉底爱情观的核心：爱一个人，是为了走向更高的美\n如果把苏格拉底的爱情观概括出来，我觉得可以这样说：爱不是占有一个人，而是通过一个人被美所引导。\n这和普通恋爱观有很大不同。现实中我们常常把爱情理解成两个人之间的关系：我喜欢你，你是否喜欢我；我们能不能在一起；这段关系能不能稳定。但苏格拉底更关心的是：这个爱有没有让灵魂向上？它有没有让人认识更高的美、善和智慧？\n在他的观点里，具体的人当然重要。因为我们往往正是通过某一个具体的人，第一次强烈地感受到美。可是，如果爱只停留在“我要拥有这个人”，那它就容易变成狭隘的欲望。真正更高的爱，是从这个人身上看见美，再通过这种美走向更广阔的精神世界。\n所以，苏格拉底并不是简单反对恋爱，也不是否定身体吸引。他只是认为，爱不能停在最低层次。好的爱情应该让人变得更清醒、更自由、更接近智慧，而不是让人沉溺在占有、嫉妒和欲望之中。"
+  },
+  {
+    "objectID": "posts/philosophy/会饮篇/index.html#阿尔喀比亚德现实中的爱情充满矛盾",
+    "href": "posts/philosophy/会饮篇/index.html#阿尔喀比亚德现实中的爱情充满矛盾",
+    "title": "会饮篇",
+    "section": "阿尔喀比亚德：现实中的爱情充满矛盾",
+    "text": "阿尔喀比亚德：现实中的爱情充满矛盾\n在苏格拉底讲完之后，阿尔喀比亚德突然闯入宴会。他的出现非常重要，因为他把前面抽象的爱情理论重新拉回到了现实。\n阿尔喀比亚德讲述了自己对苏格拉底的迷恋。他被苏格拉底吸引，渴望接近苏格拉底，甚至希望用自己的美貌换取苏格拉底的智慧。但苏格拉底没有按照普通欲望的方式回应他。\n阿尔喀比亚德的爱是复杂的。他既崇拜苏格拉底，又感到挫败；既被苏格拉底的智慧吸引，又无法完全摆脱自己的虚荣和欲望。他的出现说明，现实中的 Eros 并不总是高尚、纯粹和理性的。爱也可能让人痛苦、嫉妒、失控，甚至看见自己内心的不自由。\n但这恰恰反过来证明了苏格拉底观点的重要性。Eros 本身只是一种力量，它可以把人拉向更高处，也可以让人陷入混乱。关键在于，人能不能把爱的冲动转化为自我认识和精神提升。\n苏格拉底像一面镜子，让阿尔喀比亚德看见自己的缺乏。也正因为如此，苏格拉底本人几乎成为 Eros 的化身：他不满足别人表面的欲望，而是不断唤醒别人对智慧和美德的追求。"
+  },
+  {
+    "objectID": "modeling.html",
+    "href": "modeling.html",
+    "title": "统计建模",
     "section": "",
-    "text": "“为什么塞尚随时都在画圣维克图瓦山呢？这是因为每时每刻的光线都是一种馈赠。\n生活，尽管有悲剧，但毕竟还可以是美好的。我已经六十七岁了，青春不再，但我终于感觉自己——因为我不是为了自己而被爱——我感觉自己从未这样年轻，即便一切都快结束了。\n是的，毕竟来日方长。”\n——阿尔都塞《来日方长》"
+    "text": "这里整理线性回归、Logistic 回归、广义线性模型、模型诊断、变量选择和预测建模相关内容。\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Eros 统计建模与数据科学笔记",
+    "section": "",
+    "text": "虽然日常总是琐事偏多，代码跑不出来，作业写不完，论文看不懂，钱包还很安静。\n但问题不大，鼠鼠我呀，还是很会做梦的。梦里我已经毕业了，论文发了，钱赚到了，爱情也来了，整只鼠都闪闪发光。\n就像阿尔都塞说的那样：“生活，尽管有悲剧，但毕竟还可以是美好的。”"
+  },
+  {
+    "objectID": "index.html#前言",
+    "href": "index.html#前言",
+    "title": "Eros 统计建模与数据科学笔记",
+    "section": "",
+    "text": "虽然日常总是琐事偏多，代码跑不出来，作业写不完，论文看不懂，钱包还很安静。\n但问题不大，鼠鼠我呀，还是很会做梦的。梦里我已经毕业了，论文发了，钱赚到了，爱情也来了，整只鼠都闪闪发光。\n就像阿尔都塞说的那样：“生活，尽管有悲剧，但毕竟还可以是美好的。”"
+  },
+  {
+    "objectID": "index.html#文章列表",
+    "href": "index.html#文章列表",
+    "title": "Eros 统计建模与数据科学笔记",
+    "section": "文章列表",
+    "text": "文章列表"
   },
   {
     "objectID": "Althusser.html",
@@ -182,32 +280,242 @@
     "text": "文章列表"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Eros 统计建模与数据科学笔记",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Eros",
     "section": "",
-    "text": "这里记录应用统计学、R/Python 数据分析、统计建模、生存分析、因果推断、数学建模以及个人阅读笔记。"
+    "text": "“为什么塞尚随时都在画圣维克图瓦山呢？这是因为每时每刻的光线都是一种馈赠。\n生活，尽管有悲剧，但毕竟还可以是美好的。我已经六十七岁了，青春不再，但我终于感觉自己——因为我不是为了自己而被爱——我感觉自己从未这样年轻，即便一切都快结束了。\n是的，毕竟来日方长。”\n——阿尔都塞《来日方长》"
   },
   {
-    "objectID": "index.html#欢迎来到-eros-的数据分析博客",
-    "href": "index.html#欢迎来到-eros-的数据分析博客",
-    "title": "Eros 统计建模与数据科学笔记",
+    "objectID": "causal.html",
+    "href": "causal.html",
+    "title": "因果推断",
     "section": "",
-    "text": "这里记录应用统计学、R/Python 数据分析、统计建模、生存分析、因果推断、数学建模以及个人阅读笔记。"
+    "text": "这里整理 PSM、IPTW、DID、IV、AIPW、TMLE、Causal Forest 等因果推断方法。\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "modeling.html",
-    "href": "modeling.html",
-    "title": "统计建模",
+    "objectID": "math-modeling.html",
+    "href": "math-modeling.html",
+    "title": "数学建模",
     "section": "",
-    "text": "这里整理线性回归、Logistic 回归、广义线性模型、模型诊断、变量选择和预测建模相关内容。\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "这里整理数学建模、运筹优化、线性规划、数值计算、MATLAB、LINGO 和 Mathematica 相关内容。\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "philosophy.html",
+    "href": "philosophy.html",
+    "title": "柏拉图",
+    "section": "",
+    "text": "这里整理柏拉图相关作品解读，包括《理想国》《会饮篇》《斐多篇》《申辩篇》《克里托篇》等文本的阅读笔记、思想脉络和个人理解。\n\n人生未经审视，不值得过。"
+  },
+  {
+    "objectID": "philosophy.html#柏拉图作品阅读笔记",
+    "href": "philosophy.html#柏拉图作品阅读笔记",
+    "title": "柏拉图",
+    "section": "",
+    "text": "这里整理柏拉图相关作品解读，包括《理想国》《会饮篇》《斐多篇》《申辩篇》《克里托篇》等文本的阅读笔记、思想脉络和个人理解。\n\n人生未经审视，不值得过。"
+  },
+  {
+    "objectID": "philosophy.html#文章列表",
+    "href": "philosophy.html#文章列表",
+    "title": "柏拉图",
+    "section": "文章列表",
+    "text": "文章列表"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html",
+    "href": "posts/python/reinforcement_review/index.html",
+    "title": "强化学习概述",
+    "section": "",
+    "text": "强化学习研究的是：一个智能体如何通过与环境不断交互，在奖励反馈中学会做出更好的长期决策。\n\n强化学习的英文是 Reinforcement Learning，简称 RL。它和监督学习、无监督学习最大的区别在于：强化学习不是直接学习标准答案，而是在不断试错中学习“怎么做决策”。\n举几个直观例子：\n\n打游戏：当前画面是状态，按键是动作，得分是奖励。\n机器人走路：机器人的位置和姿态是状态，电机控制是动作，是否摔倒或前进距离是奖励。\n自动驾驶：路况、车速、障碍物是状态，转向、刹车、加速是动作，安全到达目的地是奖励。\n推荐系统：用户当前兴趣是状态，推荐内容是动作，点击、停留时长和满意度是奖励。\n学习计划：当前学习水平是状态，选择复习哪门课是动作，成绩提升是奖励。\n\n强化学习最重要的特点是：\n\n没有人直接告诉智能体每一步应该怎么做，它需要通过和环境交互，根据奖励不断调整自己的行为。\n\n\n\n\n\n\n学习类型\n数据形式\n核心目标\n典型例子\n\n\n\n\n监督学习\n输入和标签\n学会预测\n图像分类、房价预测\n\n\n无监督学习\n只有数据，没有标签\n发现结构\n聚类、降维\n\n\n强化学习\n状态、动作、奖励\n学会决策\n游戏 AI、机器人控制\n\n\n\n监督学习更像“老师给标准答案”；强化学习更像“自己试错，做得好就奖励，做得差就惩罚”。\n例如，训练一个识别猫狗的模型时，监督学习会告诉模型每张图片是猫还是狗；但训练一个玩游戏的智能体时，通常不会告诉它“这一帧必须按左键”，而是告诉它最后得了多少分。\n所以强化学习的核心不是单纯预测，而是序列决策。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#强化学习与其他机器学习方法的区别",
+    "href": "posts/python/reinforcement_review/index.html#强化学习与其他机器学习方法的区别",
+    "title": "强化学习概述",
+    "section": "",
+    "text": "学习类型\n数据形式\n核心目标\n典型例子\n\n\n\n\n监督学习\n输入和标签\n学会预测\n图像分类、房价预测\n\n\n无监督学习\n只有数据，没有标签\n发现结构\n聚类、降维\n\n\n强化学习\n状态、动作、奖励\n学会决策\n游戏 AI、机器人控制\n\n\n\n监督学习更像“老师给标准答案”；强化学习更像“自己试错，做得好就奖励，做得差就惩罚”。\n例如，训练一个识别猫狗的模型时，监督学习会告诉模型每张图片是猫还是狗；但训练一个玩游戏的智能体时，通常不会告诉它“这一帧必须按左键”，而是告诉它最后得了多少分。\n所以强化学习的核心不是单纯预测，而是序列决策。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#agent-与-environment",
+    "href": "posts/python/reinforcement_review/index.html#agent-与-environment",
+    "title": "强化学习概述",
+    "section": "1.1 Agent 与 Environment",
+    "text": "1.1 Agent 与 Environment\nAgent 是智能体，也就是做决策的主体。例如游戏 AI、机器人、自动驾驶汽车、推荐系统或大模型智能体。\nEnvironment 是环境，也就是智能体所处的外部世界。智能体采取动作后，环境会发生变化，并返回新的状态和奖励。\n强化学习的基本循环如下：\n\n\nCode\nflowchart LR\n    A[Agent 智能体] --&gt;|Action 动作| B[Environment 环境]\n    B --&gt;|State 状态| A\n    B --&gt;|Reward 奖励| A\n\n\n\n\n\nflowchart LR\n    A[Agent 智能体] --&gt;|Action 动作| B[Environment 环境]\n    B --&gt;|State 状态| A\n    B --&gt;|Reward 奖励| A\n\n\n\n\n\n\n这个过程可以描述为：\n\n智能体观察当前状态 \\(S_t\\)；\n根据策略 \\(\\pi\\) 选择动作 \\(A_t\\)；\n环境接收动作后转移到新状态 \\(S_{t+1}\\)；\n环境给出奖励 \\(R_{t+1}\\)；\n智能体根据奖励调整自己的策略；\n重复以上过程。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#stateactionreward-和-policy",
+    "href": "posts/python/reinforcement_review/index.html#stateactionreward-和-policy",
+    "title": "强化学习概述",
+    "section": "1.2 State、Action、Reward 和 Policy",
+    "text": "1.2 State、Action、Reward 和 Policy\n状态记作 \\(S_t\\)，表示时刻 \\(t\\) 环境的信息。例如游戏画面、机器人位置、棋盘局面、用户当前兴趣等。\n动作记作 \\(A_t\\)，表示智能体在当前状态下采取的行为。例如游戏中向左、向右、跳跃，自动驾驶中加速、刹车、转向。\n奖励记作 \\(R_{t+1}\\)，表示智能体采取动作之后，环境给出的反馈。奖励可以是正的，也可以是负的。\n策略记作 \\(\\pi\\)，它描述智能体在某个状态下应该采取什么动作。\n如果策略是确定性的，可以写成：\n\\[\na = \\pi(s)\n\\]\n表示在状态 \\(s\\) 下直接选择动作 \\(a\\)。\n如果策略是随机性的，可以写成：\n\\[\n\\pi(a|s)\n\\]\n表示在状态 \\(s\\) 下选择动作 \\(a\\) 的概率。\n强化学习的目标是找到一个好策略，使智能体获得尽可能大的长期累计奖励。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#马尔可夫决策过程-mdp",
+    "href": "posts/python/reinforcement_review/index.html#马尔可夫决策过程-mdp",
+    "title": "强化学习概述",
+    "section": "2.1 马尔可夫决策过程 MDP",
+    "text": "2.1 马尔可夫决策过程 MDP\nMDP 可以写成一个五元组：\n\\[\n(S, A, P, R, \\gamma)\n\\]\n其中：\n\n\\(S\\)：状态集合；\n\\(A\\)：动作集合；\n\\(P\\)：状态转移概率；\n\\(R\\)：奖励函数；\n\\(\\gamma\\)：折扣因子。\n\n状态转移概率记作：\n\\[\nP(s'|s,a)\n\\]\n它表示当前处于状态 \\(s\\)，采取动作 \\(a\\)，下一步转移到状态 \\(s'\\) 的概率。\n奖励函数可以写成：\n\\[\nR(s,a,s')\n\\]\n表示从状态 \\(s\\) 出发，采取动作 \\(a\\)，到达状态 \\(s'\\) 后得到的奖励。\n折扣因子记作：\n\\[\n\\gamma \\in [0,1]\n\\]\n它衡量未来奖励的重要程度：\n\n\\(\\gamma = 0\\)：只关心眼前奖励；\n\\(\\gamma\\) 接近 \\(1\\)：非常重视长期奖励；\n实际应用中常取 \\(0.9\\)、\\(0.95\\)、\\(0.99\\)。\n\n为什么需要折扣因子？一方面，未来奖励通常具有不确定性；另一方面，折扣因子也可以让无限期回报在数学上更容易收敛。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#回报-return",
+    "href": "posts/python/reinforcement_review/index.html#回报-return",
+    "title": "强化学习概述",
+    "section": "2.2 回报 Return",
+    "text": "2.2 回报 Return\n强化学习不是只看一步奖励，而是看从当前时刻开始的长期累计奖励。\n假设从时刻 \\(t\\) 开始，智能体得到的奖励序列为：\n\\[\nR_{t+1}, R_{t+2}, R_{t+3}, \\cdots\n\\]\n那么从时刻 \\(t\\) 开始的折扣回报定义为：\n\\[\nG_t = R_{t+1} + \\gamma R_{t+2} + \\gamma^2 R_{t+3} + \\gamma^3 R_{t+4} + \\cdots\n\\]\n其中：\n\n\\(G_t\\)：从时刻 \\(t\\) 开始的累计折扣回报；\n\\(R_{t+1}\\)：下一步得到的即时奖励；\n\\(\\gamma\\)：折扣因子。\n\n观察上面的式子：\n\\[\nG_t = R_{t+1} + \\gamma R_{t+2} + \\gamma^2 R_{t+3} + \\cdots\n\\]\n而下一时刻的回报是：\n\\[\nG_{t+1} = R_{t+2} + \\gamma R_{t+3} + \\gamma^2 R_{t+4} + \\cdots\n\\]\n所以：\n\\[\n\\gamma G_{t+1}\n=\n\\gamma R_{t+2}\n+\n\\gamma^2 R_{t+3}\n+\n\\gamma^3 R_{t+4}\n+\n\\cdots\n\\]\n因此可以得到回报的递推形式：\n\\[\nG_t = R_{t+1} + \\gamma G_{t+1}\n\\]\n这个递推式非常重要，因为贝尔曼方程就是从它推导出来的。\n一句话理解：\n\n当前总回报 = 下一步奖励 + 折扣后的未来总回报。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#价值函数-value-function",
+    "href": "posts/python/reinforcement_review/index.html#价值函数-value-function",
+    "title": "强化学习概述",
+    "section": "2.3 价值函数 Value Function",
+    "text": "2.3 价值函数 Value Function\n强化学习中有两个非常重要的价值函数：状态价值函数和动作价值函数。\n状态价值函数定义为：\n\\[\nV_\\pi(s) = \\mathbb{E}_\\pi[G_t \\mid S_t = s]\n\\]\n意思是：如果当前处于状态 \\(s\\)，以后都按照策略 \\(\\pi\\) 行动，那么从现在开始能获得的长期平均回报是多少。\n动作价值函数定义为：\n\\[\nQ_\\pi(s,a) = \\mathbb{E}_\\pi[G_t \\mid S_t=s, A_t=a]\n\\]\n意思是：如果当前处于状态 \\(s\\)，先采取动作 \\(a\\)，之后再按照策略 \\(\\pi\\) 行动，那么长期平均回报是多少。\n二者区别如下：\n\n\n\n函数\n评价对象\n用途\n\n\n\n\n\\(V_\\pi(s)\\)\n状态\n判断这个状态好不好\n\n\n\\(Q_\\pi(s,a)\\)\n状态-动作对\n判断这个动作值不值得做\n\n\n\n实际做决策时，\\(Q\\) 函数更直接。因为在一个状态下，只要比较所有动作的 \\(Q\\) 值，就可以选择 \\(Q\\) 值最大的动作：\n\\[\na^* = \\arg\\max_a Q(s,a)\n\\]"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#状态价值函数的贝尔曼期望方程",
+    "href": "posts/python/reinforcement_review/index.html#状态价值函数的贝尔曼期望方程",
+    "title": "强化学习概述",
+    "section": "3.1 状态价值函数的贝尔曼期望方程",
+    "text": "3.1 状态价值函数的贝尔曼期望方程\n前面已经得到回报递推式：\n\\[\nG_t = R_{t+1} + \\gamma G_{t+1}\n\\]\n状态价值函数定义为：\n\\[\nV_\\pi(s) = \\mathbb{E}_\\pi[G_t \\mid S_t=s]\n\\]\n把 \\(G_t\\) 的递推式代入：\n\\[\nV_\\pi(s)\n=\n\\mathbb{E}_\\pi[\nR_{t+1}\n+\n\\gamma G_{t+1}\n\\mid S_t=s\n]\n\\]\n利用期望的线性性质：\n\\[\nV_\\pi(s)\n=\n\\mathbb{E}_\\pi[\nR_{t+1}\n\\mid S_t=s\n]\n+\n\\gamma\n\\mathbb{E}_\\pi[\nG_{t+1}\n\\mid S_t=s\n]\n\\]\n但 \\(G_{t+1}\\) 是从下一状态 \\(S_{t+1}\\) 开始的长期回报。根据价值函数定义：\n\\[\nV_\\pi(S_{t+1}) = \\mathbb{E}_\\pi[G_{t+1} \\mid S_{t+1}]\n\\]\n所以可以写成：\n\\[\nV_\\pi(s)\n=\n\\mathbb{E}_\\pi[\nR_{t+1}\n+\n\\gamma V_\\pi(S_{t+1})\n\\mid S_t=s\n]\n\\]\n这就是状态价值函数的贝尔曼期望方程。\n它的直观含义是：\n\n一个状态的价值 = 下一步即时奖励 + 下一状态价值的折扣。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#贝尔曼期望方程的求和形式",
+    "href": "posts/python/reinforcement_review/index.html#贝尔曼期望方程的求和形式",
+    "title": "强化学习概述",
+    "section": "3.2 贝尔曼期望方程的求和形式",
+    "text": "3.2 贝尔曼期望方程的求和形式\n在状态 \\(s\\) 下，智能体按照策略 \\(\\pi\\) 选择动作 \\(a\\)，概率是：\n\\[\n\\pi(a|s)\n\\]\n然后环境根据转移概率：\n\\[\nP(s'|s,a)\n\\]\n转移到下一个状态 \\(s'\\)。\n因此，状态价值函数可以展开为：\n\\[\nV_\\pi(s)\n=\n\\sum_a \\pi(a|s)\n\\sum_{s'} P(s'|s,a)\n[\nR(s,a,s') + \\gamma V_\\pi(s')\n]\n\\]\n这个式子中的每一部分都可以解释为：\n\n\\(\\sum_a \\pi(a|s)\\)：考虑当前策略可能选择的所有动作；\n\\(\\sum_{s'}P(s'|s,a)\\)：考虑动作之后可能到达的所有下一状态；\n\\(R(s,a,s')\\)：当前动作带来的即时奖励；\n\\(\\gamma V_\\pi(s')\\)：下一状态的长期价值；\n两层求和：对所有可能动作和可能下一状态求平均。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#动作价值函数的贝尔曼期望方程",
+    "href": "posts/python/reinforcement_review/index.html#动作价值函数的贝尔曼期望方程",
+    "title": "强化学习概述",
+    "section": "3.3 动作价值函数的贝尔曼期望方程",
+    "text": "3.3 动作价值函数的贝尔曼期望方程\n动作价值函数定义为：\n\\[\nQ_\\pi(s,a)\n=\n\\mathbb{E}_\\pi[G_t \\mid S_t=s,A_t=a]\n\\]\n同样利用：\n\\[\nG_t = R_{t+1} + \\gamma G_{t+1}\n\\]\n可得：\n\\[\nQ_\\pi(s,a)\n=\n\\mathbb{E}_\\pi[\nR_{t+1}\n+\n\\gamma G_{t+1}\n\\mid S_t=s,A_t=a\n]\n\\]\n下一步到达 \\(S_{t+1}=s'\\) 后，智能体会根据策略 \\(\\pi\\) 选择下一个动作 \\(a'\\)，所以：\n\\[\nQ_\\pi(s,a)\n=\n\\sum_{s'}P(s'|s,a)\n\\left[\nR(s,a,s')\n+\n\\gamma\n\\sum_{a'}\\pi(a'|s')Q_\\pi(s',a')\n\\right]\n\\]\n这就是 \\(Q\\) 函数的贝尔曼期望方程。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#贝尔曼最优方程",
+    "href": "posts/python/reinforcement_review/index.html#贝尔曼最优方程",
+    "title": "强化学习概述",
+    "section": "3.4 贝尔曼最优方程",
+    "text": "3.4 贝尔曼最优方程\n强化学习最终想要找到最优策略。\n最优状态价值函数定义为：\n\\[\nV_*(s) = \\max_\\pi V_\\pi(s)\n\\]\n表示在所有可能策略中，状态 \\(s\\) 能达到的最大长期回报。\n最优动作价值函数定义为：\n\\[\nQ_*(s,a) = \\max_\\pi Q_\\pi(s,a)\n\\]\n表示在状态 \\(s\\) 下先采取动作 \\(a\\)，之后采用最优策略时，能得到的最大长期回报。\n在最优情况下，智能体每一步都应该选择让长期价值最大的动作。因此：\n\\[\nV_*(s)\n=\n\\max_a\n\\sum_{s'}P(s'|s,a)\n[\nR(s,a,s')+\\gamma V_*(s')\n]\n\\]\n这就是状态价值函数的贝尔曼最优方程。\n对于 \\(Q\\) 函数：\n\\[\nQ_*(s,a)\n=\n\\sum_{s'}P(s'|s,a)\n[\nR(s,a,s')\n+\n\\gamma \\max_{a'} Q_*(s',a')\n]\n\\]\n这个公式非常关键。Q-Learning 的更新公式就是从它来的：\n\\[\nQ(S_t,A_t)\n\\leftarrow\nQ(S_t,A_t)\n+\n\\alpha\n[\nR_{t+1}\n+\n\\gamma \\max_{a'}Q(S_{t+1},a')\n-\nQ(S_t,A_t)\n]\n\\]\n其中：\n\\[\nR_{t+1}\n+\n\\gamma \\max_{a'}Q(S_{t+1},a')\n\\]\n可以理解为新的目标值；\n\\[\nR_{t+1}\n+\n\\gamma \\max_{a'}Q(S_{t+1},a')\n-\nQ(S_t,A_t)\n\\]\n就是当前估计和新目标之间的误差。\n贝尔曼方程的核心思想可以总结为：\n\n现在好不好，不只看现在得到多少，还要看未来能走到哪里。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#动态规划蒙特卡洛与时间差分",
+    "href": "posts/python/reinforcement_review/index.html#动态规划蒙特卡洛与时间差分",
+    "title": "强化学习概述",
+    "section": "4.1 动态规划、蒙特卡洛与时间差分",
+    "text": "4.1 动态规划、蒙特卡洛与时间差分\n如果我们知道环境模型，也就是知道 \\(P(s'|s,a)\\) 和 \\(R(s,a,s')\\)，那么可以直接用动态规划方法求解。\n典型方法包括：\n\n策略评估；\n策略改进；\n策略迭代；\n价值迭代。\n\n价值迭代公式为：\n\\[\nV_{k+1}(s)\n=\n\\max_a\n\\sum_{s'}P(s'|s,a)\n[\nR(s,a,s')\n+\n\\gamma V_k(s')\n]\n\\]\n反复迭代，价值函数会逐渐收敛到最优价值函数。\n蒙特卡洛方法不需要知道状态转移概率，它的思想是：\n\n多次完整地经历一局游戏，然后把某个状态之后真实得到的回报取平均。\n\n如果某个状态 \\(s\\) 出现了很多次，对应回报分别是 \\(G_1, G_2, \\cdots, G_n\\)，那么可以估计：\n\\[\nV(s) \\approx \\frac{1}{n}\\sum_{i=1}^n G_i\n\\]\n时间差分学习，英文是 Temporal Difference Learning，简称 TD。TD 方法结合了动态规划和蒙特卡洛方法的优点。\nTD 更新公式为：\n\\[\nV(S_t)\n\\leftarrow\nV(S_t)\n+\n\\alpha\n[\nR_{t+1}\n+\n\\gamma V(S_{t+1})\n-\nV(S_t)\n]\n\\]\n其中：\n\\[\n\\delta_t =\nR_{t+1}\n+\n\\gamma V(S_{t+1})\n-\nV(S_t)\n\\]\n称为 TD 误差。\nTD 方法的核心思想是：\n\n不用等一局结束，只走一步就可以更新当前状态价值。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#sarsa-与-q-learning",
+    "href": "posts/python/reinforcement_review/index.html#sarsa-与-q-learning",
+    "title": "强化学习概述",
+    "section": "4.2 SARSA 与 Q-Learning",
+    "text": "4.2 SARSA 与 Q-Learning\nSARSA 是一种 on-policy 算法。它的名字来自一次更新中用到的五个量：\n\\[\nS_t, A_t, R_{t+1}, S_{t+1}, A_{t+1}\n\\]\nSARSA 的更新公式为：\n\\[\nQ(S_t,A_t)\n\\leftarrow\nQ(S_t,A_t)\n+\n\\alpha\n[\nR_{t+1}\n+\n\\gamma Q(S_{t+1},A_{t+1})\n-\nQ(S_t,A_t)\n]\n\\]\nSARSA 学的是当前实际执行策略的价值。也就是说，下一步实际选了什么动作，它就用什么动作来更新。\nQ-Learning 是一种 off-policy 算法。更新公式为：\n\\[\nQ(S_t,A_t)\n\\leftarrow\nQ(S_t,A_t)\n+\n\\alpha\n[\nR_{t+1}\n+\n\\gamma \\max_{a'}Q(S_{t+1},a')\n-\nQ(S_t,A_t)\n]\n\\]\nSARSA 和 Q-Learning 最大区别在于：\n\nSARSA 用的是实际执行的下一动作 \\(A_{t+1}\\)；\nQ-Learning 用的是下一状态下价值最大的动作 \\(\\max_{a'}Q(S_{t+1},a')\\)。\n\n所以可以简单理解为：\n\nSARSA 学的是“我实际怎么做”；Q-Learning 学的是“理论上最优应该怎么做”。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#目前强化学习主要分类",
+    "href": "posts/python/reinforcement_review/index.html#目前强化学习主要分类",
+    "title": "强化学习概述",
+    "section": "4.3目前强化学习主要分类",
+    "text": "4.3目前强化学习主要分类\n目前强化学习分类有如下一些分法，如下图所示："
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#问题设置",
+    "href": "posts/python/reinforcement_review/index.html#问题设置",
+    "title": "强化学习概述",
+    "section": "5.1 问题设置",
+    "text": "5.1 问题设置\n我们设置一个简单环境：\n\n网格大小：\\(4 \\times 4\\)；\n终点是右下角；\n每走一步奖励为 \\(-1\\)；\n到达终点后奖励为 \\(0\\)；\n撞墙则停在原地；\n折扣因子 \\(\\gamma = 0.9\\)。\n\n动作包括上、下、左、右。我们希望通过价值迭代求出每个格子的价值，并得到最优移动方向。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#价值迭代代码",
+    "href": "posts/python/reinforcement_review/index.html#价值迭代代码",
+    "title": "强化学习概述",
+    "section": "5.2 价值迭代代码",
+    "text": "5.2 价值迭代代码\n下面这段代码可以直接在 Quarto 中运行。\n\n\nCode\nimport numpy as np\n\n# 设置网格大小\nn_rows, n_cols = 4, 4\n\n# 终点状态：右下角\nterminal_state = (3, 3)\n\n# 折扣因子\ngamma = 0.9\n\n# 动作：上、下、左、右\nactions = {\n    \"↑\": (-1, 0),\n    \"↓\": (1, 0),\n    \"←\": (0, -1),\n    \"→\": (0, 1)\n}\n\ndef step(state, action):\n    \"\"\"\n    输入当前状态和动作，返回下一个状态和奖励。\n    \"\"\"\n    if state == terminal_state:\n        return state, 0\n\n    dr, dc = actions[action]\n    r, c = state\n    nr, nc = r + dr, c + dc\n\n    # 如果撞墙，则保持原地不动\n    if nr &lt; 0 or nr &gt;= n_rows or nc &lt; 0 or nc &gt;= n_cols:\n        nr, nc = r, c\n\n    next_state = (nr, nc)\n\n    # 每走一步奖励为 -1\n    reward = -1\n\n    return next_state, reward\n\n# 初始化价值函数\nV = np.zeros((n_rows, n_cols))\n\n# 价值迭代\ntheta = 1e-6\nmax_iterations = 1000\n\nfor iteration in range(max_iterations):\n    delta = 0\n    new_V = V.copy()\n\n    for r in range(n_rows):\n        for c in range(n_cols):\n            state = (r, c)\n\n            if state == terminal_state:\n                new_V[r, c] = 0\n                continue\n\n            action_values = []\n\n            for action in actions:\n                next_state, reward = step(state, action)\n                nr, nc = next_state\n                value = reward + gamma * V[nr, nc]\n                action_values.append(value)\n\n            # 贝尔曼最优方程：选择价值最大的动作\n            new_V[r, c] = max(action_values)\n            delta = max(delta, abs(new_V[r, c] - V[r, c]))\n\n    V = new_V\n\n    if delta &lt; theta:\n        break\n\nprint(\"迭代次数：\", iteration + 1)\nprint(\"最终状态价值函数：\")\nprint(np.round(V, 2))\n\n\n迭代次数： 7\n最终状态价值函数：\n[[-4.69 -4.1  -3.44 -2.71]\n [-4.1  -3.44 -2.71 -1.9 ]\n [-3.44 -2.71 -1.9  -1.  ]\n [-2.71 -1.9  -1.    0.  ]]"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#提取最优策略",
+    "href": "posts/python/reinforcement_review/index.html#提取最优策略",
+    "title": "强化学习概述",
+    "section": "5.3 提取最优策略",
+    "text": "5.3 提取最优策略\n有了价值函数后，我们可以在每个状态比较四个动作的价值，选择最好的动作。\n\n\nCode\npolicy = np.empty((n_rows, n_cols), dtype=object)\n\nfor r in range(n_rows):\n    for c in range(n_cols):\n        state = (r, c)\n\n        if state == terminal_state:\n            policy[r, c] = \"G\"\n            continue\n\n        best_action = None\n        best_value = -np.inf\n\n        for action in actions:\n            next_state, reward = step(state, action)\n            nr, nc = next_state\n            value = reward + gamma * V[nr, nc]\n\n            if value &gt; best_value:\n                best_value = value\n                best_action = action\n\n        policy[r, c] = best_action\n\nprint(\"最优策略：\")\nprint(policy)\n\n\n最优策略：\n[['↓' '↓' '↓' '↓']\n ['↓' '↓' '↓' '↓']\n ['↓' '↓' '↓' '↓']\n ['→' '→' '→' 'G']]"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#可视化",
+    "href": "posts/python/reinforcement_review/index.html#可视化",
+    "title": "强化学习概述",
+    "section": "5.4 可视化",
+    "text": "5.4 可视化\n\n\nCode\nimport matplotlib.pyplot as plt\nfrom matplotlib import font_manager\n\ndef set_chinese_font():\n    \"\"\"\n    自动设置 Matplotlib 中文字体，避免中文乱码。\n    Windows 常见字体：Microsoft YaHei、SimHei\n    macOS 常见字体：PingFang SC、Heiti SC\n    Linux 常见字体：Noto Sans CJK SC、WenQuanYi Micro Hei\n    \"\"\"\n    candidate_fonts = [\n        \"Microsoft YaHei\",\n        \"SimHei\",\n        \"PingFang SC\",\n        \"Heiti SC\",\n        \"Noto Sans CJK SC\",\n        \"WenQuanYi Micro Hei\",\n        \"Arial Unicode MS\"\n    ]\n\n    available_fonts = {font.name for font in font_manager.fontManager.ttflist}\n\n    for font in candidate_fonts:\n        if font in available_fonts:\n            plt.rcParams[\"font.sans-serif\"] = [font]\n            break\n\n    # 解决负号显示问题\n    plt.rcParams[\"axes.unicode_minus\"] = False\n\nset_chinese_font()\n\nfig, ax = plt.subplots(figsize=(6, 6))\n\n# 画网格\nax.set_xlim(0, n_cols)\nax.set_ylim(0, n_rows)\nax.set_xticks(np.arange(0, n_cols + 1, 1))\nax.set_yticks(np.arange(0, n_rows + 1, 1))\nax.grid(True)\n\n# 调整坐标方向，使第一行显示在上方\nax.invert_yaxis()\n\n# 隐藏刻度标签\nax.set_xticklabels([])\nax.set_yticklabels([])\n\n# 写入价值和策略\nfor r in range(n_rows):\n    for c in range(n_cols):\n        if (r, c) == terminal_state:\n            text = \"终点\\n0\"\n        else:\n            text = f\"{policy[r, c]}\\n{V[r, c]:.2f}\"\n\n        ax.text(\n            c + 0.5,\n            r + 0.5,\n            text,\n            ha=\"center\",\n            va=\"center\",\n            fontsize=13\n        )\n\nax.set_title(\"GridWorld 最优策略与状态价值\", fontsize=14)\nplt.show()"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#代码结果解释",
+    "href": "posts/python/reinforcement_review/index.html#代码结果解释",
+    "title": "强化学习概述",
+    "section": "5.5 代码结果解释",
+    "text": "5.5 代码结果解释\n输出的价值函数中，越接近终点的格子，价值越高。\n因为每走一步都会得到 \\(-1\\) 的惩罚，所以距离终点越远，未来累计惩罚越多，价值就越低。\n最优策略中的箭头表示：\n\n在当前格子中，智能体应该往哪个方向走，才能让长期回报最大。\n\n这个例子对应的正是贝尔曼最优方程：\n\\[\nV_*(s)\n=\n\\max_a\n[\nR(s,a,s')\n+\n\\gamma V_*(s')\n]\n\\]\n在这个确定性环境中，下一状态 \\(s'\\) 是确定的，所以不需要对 \\(s'\\) 求概率期望。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#dqn深度-q-网络",
+    "href": "posts/python/reinforcement_review/index.html#dqn深度-q-网络",
+    "title": "强化学习概述",
+    "section": "6.1 DQN：深度 Q 网络",
+    "text": "6.1 DQN：深度 Q 网络\nDQN 的思想是用神经网络近似 \\(Q\\) 函数：\n\\[\nQ(s,a;\\theta)\n\\]\n其中 \\(\\theta\\) 是神经网络参数。\nDQN 可以理解为：\n\nQ-Learning + 深度神经网络。\n\nDQN 的输入可以是游戏画面，输出是每个动作的 \\(Q\\) 值。\nDQN 的核心技术包括：\n\n经验回放；\n目标网络；\n用神经网络拟合 \\(Q\\) 值。\n\n经验回放会把智能体经历过的转移样本：\n\\[\n(S_t,A_t,R_{t+1},S_{t+1})\n\\]\n存入经验池中，然后随机抽取一批样本训练神经网络。这样可以打乱数据相关性，提高训练稳定性。\n目标网络则用于缓解训练不稳定问题。如果用同一个网络同时产生当前估计和目标值，训练会非常容易震荡。DQN 因此引入目标网络，隔一段时间再更新目标网络参数。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#policy-gradient",
+    "href": "posts/python/reinforcement_review/index.html#policy-gradient",
+    "title": "强化学习概述",
+    "section": "6.2 Policy Gradient",
+    "text": "6.2 Policy Gradient\nQ-Learning 这类方法主要学习价值函数，然后根据价值函数选择动作。\nPolicy Gradient 方法则是直接学习策略：\n\\[\n\\pi_\\theta(a|s)\n\\]\n其中 \\(\\theta\\) 是策略网络参数。\n它的思想是：\n\n如果某个动作带来了更高回报，就提高以后在类似状态下选择这个动作的概率。\n\nPolicy Gradient 特别适合连续动作空间。例如机器人控制中，动作可能不是“上、下、左、右”，而是具体的电机力矩，这种动作是连续的，无法简单枚举。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#actor-critic",
+    "href": "posts/python/reinforcement_review/index.html#actor-critic",
+    "title": "强化学习概述",
+    "section": "6.3 Actor-Critic",
+    "text": "6.3 Actor-Critic\nActor-Critic 方法把强化学习分成两个部分：\n\nActor：负责选择动作；\nCritic：负责评价动作。\n\n可以这样理解：\n\nActor 是演员，负责表演；Critic 是评论家，负责打分。\n\nActor 根据当前策略选择动作，Critic 根据价值函数判断这个动作好不好。\n如果 Critic 认为这个动作比预期更好，那么 Actor 就增加以后选择类似动作的概率；如果 Critic 认为这个动作比预期更差，那么 Actor 就减少选择类似动作的概率。\n常见 Actor-Critic 相关算法包括 A2C、A3C、DDPG、TD3、PPO 和 SAC。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#常见算法对比",
+    "href": "posts/python/reinforcement_review/index.html#常见算法对比",
+    "title": "强化学习概述",
+    "section": "6.4 常见算法对比",
+    "text": "6.4 常见算法对比\n\n\n\n\n\n\n\n\n\n算法\n类型\n核心思想\n适用场景\n\n\n\n\nDynamic Programming\nModel-Based\n已知环境模型，用贝尔曼方程递推\n小规模、模型已知\n\n\nMonte Carlo\nModel-Free\n通过完整回合的平均回报估计价值\n有终止状态的任务\n\n\nTD Learning\nModel-Free\n走一步就更新价值\n在线学习\n\n\nSARSA\nOn-Policy\n按实际执行策略更新 Q 值\n需要考虑探索行为\n\n\nQ-Learning\nOff-Policy\n用下一状态最大 Q 值更新\n离散动作\n\n\nDQN\nValue-Based\n用神经网络近似 Q 函数\n图像输入、离散动作\n\n\nPolicy Gradient\nPolicy-Based\n直接优化策略概率\n连续动作\n\n\nActor-Critic\nHybrid\nActor 决策，Critic 评价\n复杂控制任务\n\n\nPPO\nPolicy Optimization\n限制策略更新幅度，提高稳定性\n通用深度强化学习\n\n\nSAC\nMaximum Entropy RL\n最大化奖励同时保持探索性\n连续控制"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#现实应用",
+    "href": "posts/python/reinforcement_review/index.html#现实应用",
+    "title": "强化学习概述",
+    "section": "7.1 现实应用",
+    "text": "7.1 现实应用\n强化学习在游戏 AI 中有很多经典案例，例如 Atari 游戏、AlphaGo、AlphaZero 等。游戏环境规则明确、奖励清楚、可以大量模拟，因此非常适合作为强化学习算法的测试平台。\n在机器人控制中，强化学习可以用于机械臂抓取、机器人行走、无人机控制、机器人导航和工业自动化控制。但现实机器人试错成本高，因此常见做法是先在仿真环境中训练，再迁移到真实机器人上，这类问题也被称为 sim-to-real。\n在自动驾驶中，强化学习可以用于变道决策、路径规划、车速控制、多车交互和路口通行策略。但自动驾驶对安全性要求极高，因此实际研究中通常要结合仿真平台、安全约束和离线数据。\n在推荐系统中，强化学习不只关注用户是否点击，还关注用户长期满意度、内容多样性和用户留存。它可以把推荐看成序列决策问题。\n在大语言模型中，RLHF 是一个重要方向。RLHF 的全称是 Reinforcement Learning from Human Feedback，即“基于人类反馈的强化学习”。它通常先收集人类偏好数据，训练奖励模型，再利用强化学习优化语言模型，使模型回答更符合人类偏好。"
+  },
+  {
+    "objectID": "posts/python/reinforcement_review/index.html#研究前沿",
+    "href": "posts/python/reinforcement_review/index.html#研究前沿",
+    "title": "强化学习概述",
+    "section": "7.2 研究前沿",
+    "text": "7.2 研究前沿\n当前强化学习的研究前沿主要包括以下方向。\nOffline RL：离线强化学习。\n传统强化学习需要智能体不断和环境交互，但在医疗、金融、自动驾驶和工业控制中，在线试错往往成本很高。离线强化学习希望只利用已有历史数据学习策略。\nSafe RL：安全强化学习。\n强化学习需要探索，但探索可能带来危险。安全强化学习希望在学习过程中满足安全约束，例如机器人不能摔倒，自动驾驶不能撞车，工业系统不能超过安全温度。\nMulti-Agent RL：多智能体强化学习。\n多智能体强化学习研究多个智能体同时学习的问题，应用包括多机器人协作、无人机集群、交通信号灯控制、多车自动驾驶和博弈对抗。\nModel-Based RL：基于模型的强化学习。\nModel-Free RL 直接学习价值函数或策略，而 Model-Based RL 会先学习一个环境模型：\n\\[\n\\hat{P}(s'|s,a)\n\\]\n然后利用这个模型进行规划。它的思想是：先学会世界如何变化，再在模型里模拟未来。\nWorld Models：世界模型。\n世界模型希望智能体能够在内部建立一个“想象中的环境”，从而在脑海中模拟未来。这类似人类做决定时会先想：如果我这样做，接下来可能会发生什么？\n强化学习与大模型智能体。\n强化学习和大语言模型结合后，出现了 RLHF、RLAIF、RLVR、工具使用智能体、多智能体协作、具身智能和通用机器人策略等方向。\n\n\n强化学习的本质，不是让机器记住标准答案，而是让机器学会在不断变化的环境中做出更好的长期决策。"
   },
   {
     "objectID": "python.html",
     "href": "python.html",
     "title": "Python 数据分析",
     "section": "",
-    "text": "这里整理 Python 基础、NumPy、pandas、matplotlib、scikit-learn 和数据分析项目相关内容。\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "这里整理 Python 基础、NumPy、pandas、matplotlib、scikit-learn 以及数据分析项目、可视化案例和机器学习入门等相关内容。\n\n用 Python 记录数据分析的学习过程。"
+  },
+  {
+    "objectID": "python.html#python-数据分析学习笔记",
+    "href": "python.html#python-数据分析学习笔记",
+    "title": "Python 数据分析",
+    "section": "",
+    "text": "这里整理 Python 基础、NumPy、pandas、matplotlib、scikit-learn 以及数据分析项目、可视化案例和机器学习入门等相关内容。\n\n用 Python 记录数据分析的学习过程。"
+  },
+  {
+    "objectID": "python.html#文章列表",
+    "href": "python.html#文章列表",
+    "title": "Python 数据分析",
+    "section": "文章列表",
+    "text": "文章列表"
   },
   {
     "objectID": "statistics.html",
